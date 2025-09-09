@@ -2,9 +2,9 @@
   "name": "mental-health",
   "version": "1.0.0",
   "description": "AI mental health chatbot project",
-  "main": "backend/server.js",
+  "main": "backend/Server.js",
   "scripts": {
-    "start": "node backend/server.js",
+    "start": "node backend/Server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

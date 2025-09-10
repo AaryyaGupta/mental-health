@@ -39,4 +39,4 @@ externalPort = 80
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["node", "backend/Server.js"]
+run = ["npm"]

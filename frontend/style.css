@@ -122,6 +122,9 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Transparent logo styles */
@@ -533,13 +536,16 @@ body {
 }
 
 .logo-text {
-  color: var(--text-primary);
+  color: #2D1B69;
   font-size: var(--font-size-2xl);
   font-weight: 800;
-  font-family: 'Dancing Script', 'Brush Script MT', cursive;
+  font-family: var(--font-primary);
   letter-spacing: 2px;
   margin: 0;
   transition: all 0.3s ease;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .nav {
@@ -804,13 +810,13 @@ body {
   font-family: var(--font-primary);
   font-size: var(--font-size-5xl);
   font-weight: 800;
-  background: linear-gradient(135deg, var(--heart-purple) 0%, var(--heart-pink) 50%, var(--heart-coral) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #2D1B69;
   margin-bottom: var(--space-4);
   letter-spacing: 3px;
-  text-shadow: 0 4px 12px rgba(99, 102, 181, 0.3);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
   animation: titleShimmer 8s ease-in-out infinite;
 }
 
@@ -968,14 +974,15 @@ body {
 .card-header h3 {
   font-size: var(--font-size-2xl);
   font-weight: 700;
-  background: linear-gradient(135deg, var(--heart-purple) 0%, var(--heart-pink) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #2D1B69;
   margin: 0;
   font-family: var(--font-primary);
   letter-spacing: 1px;
-  text-shadow: 0 2px 8px rgba(99, 102, 181, 0.1);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .card-content {

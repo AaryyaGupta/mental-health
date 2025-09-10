@@ -1,13 +1,13 @@
 /* CSS Custom Properties - Zephy Calming Color Palette */
 :root {
   /* Primary Colors - Soft Periwinkle & Lavender */
-  --primary-50: #faf7ff;
-  --primary-100: #f0edff;
-  --primary-200: #e4deff;
-  --primary-300: #d1c4ff;
-  --primary-400: #b89dff;
-  --primary-500: #9c72ff;
-  --primary-600: #8b5cf6;
+  --primary-50:  #f5faff;  /* Very light blue */
+--primary-100: #e0f2ff;  /* Pale sky blue */
+--primary-200: #b8e0ff;  /* Light blue */
+--primary-300: #88c4ff;  /* Soft blue */
+--primary-400: #57a9ff;  /* Medium sky blue */
+--primary-500: #2d8cff;  /* Base blue */
+--primary-600: #1e6edc;  /* Darker blue */
 
   /* Secondary Colors - Warm Sage & Eucalyptus */
   --secondary-50: #f7f9f7;

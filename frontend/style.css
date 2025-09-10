@@ -150,7 +150,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .login-main {
@@ -216,6 +217,8 @@ body {
 
 .emotion-word {
   position: absolute;
+  top: 50%;
+  left: 50%;
   font-family: var(--font-secondary);
   font-weight: 600;
   font-size: 1.1rem;
@@ -242,17 +245,22 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* Position emotion words in orbit */
-.emotion-1 { top: 0%; left: 50%; transform: translate(-50%, -50%); }
-.emotion-2 { top: 15%; right: 15%; transform: translate(50%, -50%); }
-.emotion-3 { top: 35%; right: 0%; transform: translate(50%, -50%); }
-.emotion-4 { top: 65%; right: 15%; transform: translate(50%, -50%); }
-.emotion-5 { bottom: 0%; left: 50%; transform: translate(-50%, 50%); }
-.emotion-6 { top: 65%; left: 15%; transform: translate(-50%, -50%); }
-.emotion-7 { top: 35%; left: 0%; transform: translate(-50%, -50%); }
-.emotion-8 { top: 15%; left: 15%; transform: translate(-50%, -50%); }
-.emotion-9 { top: 50%; right: 5%; transform: translate(50%, -50%); }
-.emotion-10 { top: 50%; left: 5%; transform: translate(-50%, -50%); }
+.emotion-word:hover {
+  filter: brightness(1.15);
+  transform: inherit;
+}
+
+/* Perfect circular positioning for emotion words */
+.emotion-1 { transform: rotate(0deg) translateY(-180px) rotate(0deg) translate(-50%, -50%); }
+.emotion-2 { transform: rotate(36deg) translateY(-180px) rotate(-36deg) translate(-50%, -50%); }
+.emotion-3 { transform: rotate(72deg) translateY(-180px) rotate(-72deg) translate(-50%, -50%); }
+.emotion-4 { transform: rotate(108deg) translateY(-180px) rotate(-108deg) translate(-50%, -50%); }
+.emotion-5 { transform: rotate(144deg) translateY(-180px) rotate(-144deg) translate(-50%, -50%); }
+.emotion-6 { transform: rotate(180deg) translateY(-180px) rotate(-180deg) translate(-50%, -50%); }
+.emotion-7 { transform: rotate(216deg) translateY(-180px) rotate(-216deg) translate(-50%, -50%); }
+.emotion-8 { transform: rotate(252deg) translateY(-180px) rotate(-252deg) translate(-50%, -50%); }
+.emotion-9 { transform: rotate(288deg) translateY(-180px) rotate(-288deg) translate(-50%, -50%); }
+.emotion-10 { transform: rotate(324deg) translateY(-180px) rotate(-324deg) translate(-50%, -50%); }
 
 /* Welcome Content */
 .welcome-content {

@@ -473,6 +473,18 @@ body {
     padding: 0.4rem 0.8rem;
   }
   
+  /* Adjust circular positioning for smaller screens */
+  .emotion-1 { transform: rotate(0deg) translateY(-130px) rotate(0deg) translate(-50%, -50%); }
+  .emotion-2 { transform: rotate(36deg) translateY(-130px) rotate(-36deg) translate(-50%, -50%); }
+  .emotion-3 { transform: rotate(72deg) translateY(-130px) rotate(-72deg) translate(-50%, -50%); }
+  .emotion-4 { transform: rotate(108deg) translateY(-130px) rotate(-108deg) translate(-50%, -50%); }
+  .emotion-5 { transform: rotate(144deg) translateY(-130px) rotate(-144deg) translate(-50%, -50%); }
+  .emotion-6 { transform: rotate(180deg) translateY(-130px) rotate(-180deg) translate(-50%, -50%); }
+  .emotion-7 { transform: rotate(216deg) translateY(-130px) rotate(-216deg) translate(-50%, -50%); }
+  .emotion-8 { transform: rotate(252deg) translateY(-130px) rotate(-252deg) translate(-50%, -50%); }
+  .emotion-9 { transform: rotate(288deg) translateY(-130px) rotate(-288deg) translate(-50%, -50%); }
+  .emotion-10 { transform: rotate(324deg) translateY(-130px) rotate(-324deg) translate(-50%, -50%); }
+  
   .welcome-title {
     font-size: var(--font-size-3xl);
   }

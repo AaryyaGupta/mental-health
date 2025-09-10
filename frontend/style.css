@@ -393,27 +393,6 @@ body {
   }
 }
 
-/* Dark Mode Toggle */
-.dark-mode-toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--card-bg);
-  border: 2px solid var(--primary);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  z-index: 1001;
-}
-
-.dark-mode-toggle:hover {
-  transform: scale(1.1) rotate(10deg);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
 
 /* Enhanced Login Button */
 .btn-login {

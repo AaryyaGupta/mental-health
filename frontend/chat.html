@@ -23,43 +23,127 @@
         </div>
     </header>
 
-    <main class="chat-container">
-        <div class="chat-header">
-            <h1>Let's start your conversation</h1>
-            <p>First, help us understand how you're feeling today</p>
+    <main class="zen-chat-container">
+        <div class="zen-chat-header">
+            <div class="header-lotus">
+                <span class="lotus-symbol">🪷</span>
+                <h1>Your gentle journey begins</h1>
+                <p>Let's understand the colors of your heart today</p>
+            </div>
         </div>
 
-        <form id="traitsForm" class="traits-form">
-            <div class="mood-inputs">
-                <div class="input-group">
-                    <label for="mood">How's your mood today? (1-5)</label>
-                    <input type="range" id="mood" name="mood" min="1" max="5" value="3" required>
-                    <div class="range-labels">
-                        <span>Low</span>
-                        <span>High</span>
+        <form id="traitsForm" class="zen-traits-form">
+            <div class="mood-garden">
+                <h2 class="garden-title">Choose your mood today 🌅</h2>
+                <div class="mood-cards">
+                    <div class="mood-card" data-mood="1">
+                        <div class="mood-emoji">🌧️</div>
+                        <span class="mood-name">Cloudy</span>
+                        <p class="mood-desc">Feeling heavy, need gentle care</p>
+                    </div>
+                    <div class="mood-card" data-mood="2">
+                        <div class="mood-emoji">🌤️</div>
+                        <span class="mood-name">Partly sunny</span>
+                        <p class="mood-desc">Some shadows, some light</p>
+                    </div>
+                    <div class="mood-card" data-mood="3">
+                        <div class="mood-emoji">☀️</div>
+                        <span class="mood-name">Bright</span>
+                        <p class="mood-desc">Feeling balanced and hopeful</p>
+                    </div>
+                    <div class="mood-card" data-mood="4">
+                        <div class="mood-emoji">🌈</div>
+                        <span class="mood-name">Vibrant</span>
+                        <p class="mood-desc">Energy flowing, spirits high</p>
+                    </div>
+                    <div class="mood-card" data-mood="5">
+                        <div class="mood-emoji">✨</div>
+                        <span class="mood-name">Radiant</span>
+                        <p class="mood-desc">Glowing with joy and peace</p>
                     </div>
                 </div>
-                <div class="input-group">
-                    <label for="stress">What's your stress level? (1-5)</label>
-                    <input type="range" id="stress" name="stress" min="1" max="5" value="3" required>
-                    <div class="range-labels">
-                        <span>Calm</span>
-                        <span>Stressed</span>
+                
+                <h2 class="garden-title">How is your stress level? 🍃</h2>
+                <div class="stress-cards">
+                    <div class="stress-card" data-stress="1">
+                        <div class="stress-emoji">🧘‍♀️</div>
+                        <span class="stress-name">Zen</span>
+                        <p class="stress-desc">Calm as still water</p>
+                    </div>
+                    <div class="stress-card" data-stress="2">
+                        <div class="stress-emoji">🌿</div>
+                        <span class="stress-name">Gentle</span>
+                        <p class="stress-desc">Peaceful with small ripples</p>
+                    </div>
+                    <div class="stress-card" data-stress="3">
+                        <div class="stress-emoji">🌊</div>
+                        <span class="stress-name">Flowing</span>
+                        <p class="stress-desc">Some waves, but manageable</p>
+                    </div>
+                    <div class="stress-card" data-stress="4">
+                        <div class="stress-emoji">🌀</div>
+                        <span class="stress-name">Swirling</span>
+                        <p class="stress-desc">Thoughts spinning, need grounding</p>
+                    </div>
+                    <div class="stress-card" data-stress="5">
+                        <div class="stress-emoji">⚡</div>
+                        <span class="stress-name">Electric</span>
+                        <p class="stress-desc">Overwhelmed, seeking calm</p>
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Start Chat</button>
+            
+            <div class="zen-action-center">
+                <button type="submit" class="zen-start-button" disabled>
+                    <span class="button-text">Begin our gentle conversation</span>
+                    <span class="button-icon">💝</span>
+                </button>
+                <p class="zen-note">Take your time - there's no rush here 🌸</p>
+            </div>
         </form>
 
-        <div id="chatSection" class="chat-section" style="display: none;">
-            <div id="chatBox" class="chat-box"></div>
-            <div class="chat-input-container">
-                <input type="text" id="userMessage" placeholder="Type your message..." class="chat-input" />
-                <button id="sendBtn" class="btn btn-send">Send</button>
+        <div id="chatSection" class="zen-chat-section" style="display: none;">
+            <div class="zen-journal">
+                <div class="journal-header">
+                    <div class="journal-title">
+                        <span class="journal-icon">📖</span>
+                        <h2>Your Gentle Space</h2>
+                        <p class="mood-indicator">Mood: <span id="currentMood">✨</span> | Stress: <span id="currentStress">🌿</span></p>
+                    </div>
+                    <div class="journal-actions">
+                        <button class="mood-refresh" onclick="showMoodPicker()">🔄 Adjust feelings</button>
+                    </div>
+                </div>
+                
+                <div id="chatBox" class="zen-messages"></div>
+                
+                <div class="message-composer">
+                    <div class="composer-header">
+                        <span class="composer-hint">💝 Share what's in your heart...</span>
+                    </div>
+                    <div class="composer-body">
+                        <textarea id="userMessage" placeholder="I'm feeling..." class="zen-input" rows="3"></textarea>
+                        <div class="composer-actions">
+                            <button id="sendBtn" class="zen-send-button">
+                                <span class="send-text">Send with love</span>
+                                <span class="send-icon">💌</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
+    <!-- Gentle background elements -->
+    <div class="zen-background">
+        <div class="floating-leaf leaf-1">🍃</div>
+        <div class="floating-leaf leaf-2">🌸</div>
+        <div class="floating-leaf leaf-3">🦋</div>
+        <div class="floating-leaf leaf-4">✨</div>
+        <div class="floating-leaf leaf-5">🌿</div>
+    </div>
+    
     <script src="chat.js"></script>
 </body>
 </html>

@@ -1,29 +1,30 @@
-/* CSS Custom Properties - Zephy Calming Color Palette */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+/* CSS Custom Properties - Cozy Zen Color Palette */
 :root {
-  /* Primary Colors - Soft Periwinkle & Lavender */
-  --primary-50:  #f5faff;  /* Very light blue */
---primary-100: #e0f2ff;  /* Pale sky blue */
---primary-200: #b8e0ff;  /* Light blue */
---primary-300: #88c4ff;  /* Soft blue */
---primary-400: #57a9ff;  /* Medium sky blue */
---primary-500: #2d8cff;  /* Base blue */
---primary-600: #1e6edc;  /* Darker blue */
-
-  /* Secondary Colors - Warm Sage & Eucalyptus */
-  --secondary-50: #f7f9f7;
-  --secondary-100: #eef2ee;
-  --secondary-200: #d8e4d8;
-  --secondary-300: #b8cdb8;
-  --secondary-400: #93b393;
-  --secondary-500: #6b996b;
-
-  /* Accent Colors - Soft Coral & Peach */
-  --accent-50: #fff9f7;
-  --accent-100: #ffeee8;
-  --accent-200: #ffd9cc;
-  --accent-300: #ffb899;
-  --accent-400: #ff9166;
-  --accent-500: #ff6b33;
+  /* Warm Zen Primary Colors */
+  --warm-peach: #FFE5D4;
+  --cream: #FFF1E6;
+  --blush: #F8EDEB;
+  --coral: #FFB997;
+  --deep-plum: #6A0572;
+  
+  /* Extended Zen Palette */
+  --soft-lavender: #F3E8FF;
+  --gentle-sage: #F0F9F0;
+  --warm-ivory: #FEFCF8;
+  --dusty-rose: #F4D4D1;
+  --muted-gold: #F9E6A6;
+  
+  /* Semantic Zen Colors */
+  --primary: var(--coral);
+  --primary-light: var(--warm-peach);
+  --primary-dark: var(--deep-plum);
+  --background: var(--cream);
+  --card-bg: var(--warm-ivory);
+  --text-primary: #4A2C2A;
+  --text-secondary: #6B4C4A;
+  --text-light: #8B6B69;
 
   /* Neutral Colors - Warm Grays */
   --gray-50: #fafafa;
@@ -43,7 +44,8 @@
   --error: #ef4444;
 
   /* Typography */
-  --font-family: 'Segoe UI', Tahoma, 'Geneva', Verdana, sans-serif;
+  --font-primary: 'Poppins', sans-serif;
+  --font-secondary: 'Quicksand', sans-serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -75,11 +77,15 @@
   --radius-2xl: 1rem;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  /* Zen Shadows - Soft and Warm */
+  --shadow-zen-soft: 0 2px 8px rgba(106, 5, 114, 0.08);
+  --shadow-zen-medium: 0 4px 16px rgba(106, 5, 114, 0.12);
+  --shadow-zen-warm: 0 8px 24px rgba(255, 185, 151, 0.2);
+  --shadow-zen-glow: 0 0 20px rgba(255, 229, 212, 0.4);
+  
+  /* Hover Effects */
+  --lift-gentle: translateY(-2px);
+  --lift-soft: translateY(-4px);
 }
 
 /* Reset and Base Styles */
@@ -94,12 +100,32 @@ html {
 }
 
 body {
-  font-family: var(--font-family);
+  font-family: var(--font-primary);
   font-size: var(--font-size-base);
   line-height: 1.6;
-  color: var(--gray-700);
-  background: linear-gradient(135deg, var(--primary-50) 0%, var(--secondary-50) 100%);
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--cream) 0%, var(--warm-peach) 50%, var(--blush) 100%);
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Floating Zen Particles Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 185, 151, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, rgba(248, 237, 235, 0.15) 1px, transparent 1px),
+    radial-gradient(circle at 60% 20%, rgba(255, 241, 230, 0.1) 1px, transparent 1px);
+  background-size: 300px 300px, 400px 400px, 250px 250px;
+  animation: floatParticles 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .container {
@@ -108,15 +134,16 @@ body {
   padding: 0 var(--space-4);
 }
 
-/* Header Styles */
+/* Zen Header Styles */
 .header {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--gray-200);
+  background: rgba(255, 241, 230, 0.85);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(255, 185, 151, 0.2);
   position: sticky;
   top: 0;
   z-index: 1000;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
+  box-shadow: var(--shadow-zen-soft);
 }
 
 .header .container {
@@ -127,9 +154,11 @@ body {
 }
 
 .logo h2 {
-  color: var(--primary-600);
+  color: var(--deep-plum);
   font-size: var(--font-size-2xl);
-  font-weight: 700;
+  font-weight: 600;
+  font-family: var(--font-secondary);
+  letter-spacing: -0.5px;
 }
 
 .nav {
@@ -139,69 +168,95 @@ body {
 
 .nav-link {
   text-decoration: none;
-  color: var(--gray-600);
+  color: var(--text-secondary);
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: all 0.4s ease;
   position: relative;
+  padding: 8px 16px;
+  border-radius: 20px;
 }
 
 .nav-link:hover {
-  color: var(--primary-600);
+  color: var(--deep-plum);
+  background: rgba(255, 185, 151, 0.15);
+  transform: var(--lift-gentle);
+  box-shadow: var(--shadow-zen-soft);
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: -4px;
-  left: 0;
+  bottom: 4px;
+  left: 50%;
   width: 0;
   height: 2px;
-  background: var(--primary-400);
-  transition: width 0.3s ease;
+  background: linear-gradient(90deg, var(--coral), var(--deep-plum));
+  transition: all 0.4s ease;
+  transform: translateX(-50%);
+  border-radius: 1px;
 }
 
 .nav-link:hover::after {
-  width: 100%;
+  width: 60%;
 }
 
-/* Button Styles */
+/* Zen Button Styles */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: var(--space-3) var(--space-6);
   border: none;
-  border-radius: var(--radius-lg);
-  font-family: inherit;
+  border-radius: 25px;
+  font-family: var(--font-primary);
   font-size: var(--font-size-base);
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
+  background: linear-gradient(135deg, var(--coral) 0%, var(--deep-plum) 100%);
   color: white;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-zen-medium);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  transform: var(--lift-gentle);
+  box-shadow: var(--shadow-zen-warm);
+  filter: brightness(1.05);
 }
 
 .btn-login {
-  background: var(--gray-50);
-  color: var(--gray-700);
-  border: 1px solid var(--gray-300);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 2px solid var(--coral);
+  font-weight: 500;
 }
 
 .btn-login:hover {
-  background: var(--gray-100);
-  transform: translateY(-1px);
+  background: var(--warm-peach);
+  transform: var(--lift-gentle);
+  box-shadow: var(--shadow-zen-soft);
 }
 
 .btn-large {
@@ -210,280 +265,393 @@ body {
 }
 
 .btn-send {
-  background: var(--secondary-500);
+  background: linear-gradient(135deg, var(--coral) 0%, var(--deep-plum) 100%);
   color: white;
   padding: var(--space-3) var(--space-5);
+  border-radius: 20px;
 }
 
 .btn-send:hover {
-  background: var(--secondary-600);
+  transform: var(--lift-gentle);
+  box-shadow: var(--shadow-zen-medium);
+  filter: brightness(1.05);
 }
 
-/* Hero Section */
-.hero {
-  padding: var(--space-20) 0;
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-}
-
-.hero .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-16);
-  align-items: center;
-}
-
-.hero-content {
-  max-width: 600px;
-}
-
-.hero-title {
-  font-size: var(--font-size-5xl);
-  font-weight: 800;
-  color: var(--gray-800);
-  margin-bottom: var(--space-4);
-  background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-500) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1.2;
-}
-
-.hero-tagline {
-  font-size: var(--font-size-xl);
-  color: var(--gray-600);
-  margin-bottom: var(--space-6);
-  font-style: italic;
-}
-
-.hero-description {
-  font-size: var(--font-size-lg);
-  color: var(--gray-600);
-  margin-bottom: var(--space-8);
-  line-height: 1.7;
-}
-
-/* Hero Visual */
-.hero-visual {
-  position: relative;
-  height: 400px;
+/* Zen Hero Section */
+.zen-hero {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: var(--space-12) 0;
+  position: relative;
+  background: radial-gradient(circle at center, rgba(255, 241, 230, 0.3) 0%, transparent 70%);
 }
 
-.floating-elements {
+.zen-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  text-align: center;
+}
+
+.zen-lotus {
+  position: relative;
+  margin-bottom: var(--space-16);
+}
+
+.lotus-petals {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto var(--space-8);
+}
+
+.petal {
+  position: absolute;
+  font-size: 2rem;
+  animation: gentleFloat 4s ease-in-out infinite;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.petal:hover {
+  transform: scale(1.2) var(--lift-gentle);
+}
+
+.petal-1 { top: 0; left: 50%; transform: translateX(-50%); animation-delay: 0s; }
+.petal-2 { top: 25%; right: 0; animation-delay: 0.7s; }
+.petal-3 { bottom: 25%; right: 0; animation-delay: 1.4s; }
+.petal-4 { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: 2.1s; }
+.petal-5 { bottom: 25%; left: 0; animation-delay: 2.8s; }
+.petal-6 { top: 25%; left: 0; animation-delay: 3.5s; }
+
+.lotus-center {
+  background: var(--card-bg);
+  border-radius: 50px;
+  padding: var(--space-8) var(--space-12);
+  box-shadow: var(--shadow-zen-warm);
+  border: 3px solid rgba(255, 185, 151, 0.3);
+}
+
+.zen-title {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  color: var(--deep-plum);
+  margin-bottom: var(--space-2);
+  letter-spacing: -1px;
+}
+
+.zen-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Zen Essence Section */
+.zen-essence {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.essence-text {
+  margin-bottom: var(--space-12);
+}
+
+.essence-title {
+  font-size: var(--font-size-3xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+  font-family: var(--font-secondary);
+}
+
+.essence-description {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto var(--space-4);
+}
+
+.highlight {
+  color: var(--coral);
+  font-weight: 500;
+  padding: 4px 8px;
+  background: rgba(255, 185, 151, 0.1);
+  border-radius: 12px;
+  display: inline-block;
+  margin: var(--space-2) 0;
+}
+
+.zen-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-6);
+  margin: var(--space-12) 0;
+}
+
+.zen-card {
+  background: var(--card-bg);
+  padding: var(--space-8);
+  border-radius: 30px;
+  box-shadow: var(--shadow-zen-medium);
+  transition: all 0.4s ease;
+  border: 2px solid rgba(255, 185, 151, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.zen-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 185, 151, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.zen-card:hover {
+  transform: var(--lift-soft);
+  box-shadow: var(--shadow-zen-warm);
+  border-color: var(--coral);
+}
+
+.zen-card:hover::before {
+  left: 100%;
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-4);
+  display: block;
+}
+
+.zen-card h3 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+  font-family: var(--font-secondary);
+}
+
+.zen-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: var(--font-size-base);
+}
+
+/* Zen Action Section */
+.zen-action {
+  margin-top: var(--space-16);
+}
+
+.action-card {
+  background: linear-gradient(135deg, var(--warm-peach) 0%, var(--blush) 100%);
+  padding: var(--space-12);
+  border-radius: 40px;
+  box-shadow: var(--shadow-zen-warm);
+  border: 3px solid rgba(106, 5, 114, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.action-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 185, 151, 0.1) 0%, transparent 70%);
+  animation: gentleGlow 8s ease-in-out infinite;
+}
+
+.action-invitation {
+  font-size: var(--font-size-xl);
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+}
+
+.zen-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: linear-gradient(135deg, var(--coral) 0%, var(--deep-plum) 100%);
+  color: white;
+  padding: var(--space-4) var(--space-8);
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+  transition: all 0.4s ease;
+  box-shadow: var(--shadow-zen-medium);
+  position: relative;
+  z-index: 2;
+  margin-bottom: var(--space-4);
+}
+
+.zen-button:hover {
+  transform: var(--lift-gentle);
+  box-shadow: var(--shadow-zen-warm);
+  filter: brightness(1.05);
+}
+
+.button-heart {
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+.action-note {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  font-style: italic;
+  position: relative;
+  z-index: 2;
+}
+
+/* Zen Philosophy Section */
+.zen-philosophy {
+  padding: var(--space-20) 0;
+  background: linear-gradient(135deg, var(--gentle-sage) 0%, var(--soft-lavender) 100%);
+  position: relative;
+}
+
+.zen-philosophy::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(255, 185, 151, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(248, 237, 235, 0.05) 0%, transparent 50%);
+  pointer-events: none;
 }
 
-.floating-circle {
-  position: absolute;
-  border-radius: 50%;
-  animation: float 6s ease-in-out infinite;
-}
-
-.circle-1 {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, var(--primary-200) 0%, var(--primary-300) 100%);
-  top: 20%;
-  left: 20%;
-  animation-delay: 0s;
-}
-
-.circle-2 {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, var(--secondary-200) 0%, var(--secondary-300) 100%);
-  top: 60%;
-  right: 10%;
-  animation-delay: 2s;
-}
-
-.circle-3 {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--accent-200) 0%, var(--accent-300) 100%);
-  bottom: 20%;
-  left: 10%;
-  animation-delay: 4s;
-}
-
-.hero-illustration {
+.philosophy-mandala {
   position: relative;
-  z-index: 1;
-}
-
-.meditation-figure {
-  position: relative;
-  width: 200px;
-  height: 200px;
-}
-
-.meditation-figure .head {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, var(--accent-300) 0%, var(--accent-400) 100%);
-  border-radius: 50%;
-  margin: 0 auto 10px;
-  position: relative;
-}
-
-.meditation-figure .body {
-  width: 80px;
-  height: 100px;
-  background: linear-gradient(135deg, var(--primary-300) 0%, var(--primary-400) 100%);
-  border-radius: 40px 40px 20px 20px;
+  max-width: 800px;
   margin: 0 auto;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.peace-waves {
+.mandala-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
-
-.wave {
-  position: absolute;
-  border: 2px solid var(--primary-300);
-  border-radius: 50%;
-  opacity: 0.6;
-  animation: ripple 3s infinite;
-}
-
-.wave-1 {
-  width: 120px;
-  height: 120px;
-  animation-delay: 0s;
-}
-
-.wave-2 {
-  width: 160px;
-  height: 160px;
-  animation-delay: 1s;
-}
-
-.wave-3 {
-  width: 200px;
-  height: 200px;
-  animation-delay: 2s;
-}
-
-/* About Section */
-.about {
-  padding: var(--space-20) 0;
-  background: white;
-}
-
-.section-title {
-  font-size: var(--font-size-4xl);
-  font-weight: 700;
-  color: var(--gray-800);
-  text-align: center;
-  margin-bottom: var(--space-4);
-}
-
-.section-subtitle {
-  font-size: var(--font-size-lg);
-  color: var(--gray-600);
-  text-align: center;
-  margin-bottom: var(--space-16);
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-8);
-  margin-bottom: var(--space-16);
-}
-
-.feature-card {
-  background: var(--gray-50);
+  background: var(--card-bg);
   padding: var(--space-8);
-  border-radius: var(--radius-2xl);
+  border-radius: 50px;
+  box-shadow: var(--shadow-zen-warm);
   text-align: center;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
-  border: 1px solid var(--gray-200);
+  z-index: 10;
+  border: 3px solid rgba(255, 185, 151, 0.2);
+  min-width: 300px;
 }
 
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-}
-
-.feature-icon {
-  font-size: var(--font-size-4xl);
+.center-symbol {
+  font-size: 4rem;
   margin-bottom: var(--space-4);
+  animation: gentleFloat 6s ease-in-out infinite;
 }
 
-.feature-card h3 {
-  font-size: var(--font-size-xl);
+.philosophy-title {
+  font-size: var(--font-size-2xl);
   font-weight: 600;
-  color: var(--gray-800);
+  color: var(--deep-plum);
+  font-family: var(--font-secondary);
+  margin: 0;
+}
+
+.philosophy-petals {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.philosophy-petal {
+  position: absolute;
+  width: 250px;
+  height: 200px;
+  background: var(--card-bg);
+  border-radius: 30px;
+  padding: var(--space-6);
+  box-shadow: var(--shadow-zen-medium);
+  transition: all 0.4s ease;
+  border: 2px solid rgba(255, 185, 151, 0.1);
+}
+
+.philosophy-petal:hover {
+  transform: var(--lift-soft);
+  box-shadow: var(--shadow-zen-warm);
+  border-color: var(--coral);
+}
+
+.petal-top {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.petal-right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.petal-bottom {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.petal-left {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.petal-content {
+  text-align: center;
+}
+
+.petal-emoji {
+  font-size: 2.5rem;
+  display: block;
   margin-bottom: var(--space-3);
 }
 
-.feature-card p {
-  color: var(--gray-600);
-  line-height: 1.6;
-}
-
-/* How It Works */
-.how-it-works {
-  text-align: center;
-}
-
-.how-it-works h3 {
-  font-size: var(--font-size-2xl);
-  font-weight: 600;
-  color: var(--gray-800);
-  margin-bottom: var(--space-8);
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--space-6);
-}
-
-.step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.step-number {
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  margin-bottom: var(--space-4);
-}
-
-.step h4 {
+.petal-content h3 {
   font-size: var(--font-size-lg);
   font-weight: 600;
-  color: var(--gray-800);
-  margin-bottom: var(--space-2);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+  font-family: var(--font-secondary);
 }
 
-.step p {
-  color: var(--gray-600);
+.petal-content p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: var(--font-size-sm);
 }
+
+/* Removed old feature styles - replaced with zen cards above */
+
+/* Removed old step styles - replaced with philosophy petals above */
 
 /* Footer */
 .footer {
@@ -717,13 +885,45 @@ body {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* Animations */
-@keyframes float {
+/* Zen Animations */
+@keyframes floatParticles {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(1deg);
+  }
+  66% {
+    transform: translateY(5px) rotate(-1deg);
+  }
+}
+
+@keyframes gentleFloat {
   0%, 100% {
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes gentleGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
   }
 }
 
@@ -735,6 +935,39 @@ body {
   100% {
     transform: translate(-50%, -50%) scale(1);
     opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 

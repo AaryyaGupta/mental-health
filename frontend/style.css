@@ -1,13 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap');
 
-/* Minimal Pink & White Color Palette */
+/* Dynamic Color Palette - Pink, Blue, and Dark Themes */
 :root {
-  /* Primary Colors - Soft pink and white theme */
-  --primary-pink: #FFE1E6;     /* Very soft pink background */
-  --accent-pink: #FF9AA2;      /* Soft coral pink */
-  --highlight-pink: #FF6B9D;   /* Bright pink for highlights */
-  --text-pink: #D81B60;        /* Deep pink for text */
-  --pure-white: #FFFFFF;       /* Pure white */
+  /* Pink Theme (Default) */
+  --primary-pink: #FFE1E6;
+  --accent-pink: #FF9AA2;
+  --highlight-pink: #FF6B9D;
+  --text-pink: #D81B60;
+  --pure-white: #FFFFFF;
+  
+  /* Blue Theme */
+  --primary-blue: #E3F2FD;
+  --accent-blue: #64B5F6;
+  --highlight-blue: #2196F3;
+  --text-blue: #1565C0;
+  --pure-blue: #0D47A1;
+  
+  /* Dark Theme */
+  --primary-dark: #1A1A1A;
+  --accent-dark: #333333;
+  --highlight-dark: #555555;
+  --text-dark: #FFFFFF;
+  --pure-black: #000000;
   
   /* Neutral Tones */
   --soft-gray: #F8F9FA;
@@ -15,7 +29,7 @@
   --medium-gray: #6C757D;
   --dark-gray: #495057;
   
-  /* Semantic Colors */
+  /* Dynamic Semantic Colors - Default Pink Theme */
   --primary: var(--accent-pink);
   --secondary: var(--highlight-pink);
   --background: var(--pure-white);
@@ -376,6 +390,77 @@ body {
   }
 }
 
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--card-bg);
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Enhanced Login Button */
+.btn-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-login::before {
+  content: "👤";
+  margin-right: 0.25rem;
+}
+
+.btn-login::after {
+  content: "🔐 ✨";
+  margin-left: 0.25rem;
+}
+
+/* Animation Keyframes */
+@keyframes cardFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes emojiPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .emotion-orbit-container {
@@ -451,9 +536,10 @@ body {
   color: var(--text-primary);
   font-size: var(--font-size-2xl);
   font-weight: 800;
-  font-family: var(--font-primary);
-  letter-spacing: 1px;
+  font-family: 'Dancing Script', 'Brush Script MT', cursive;
+  letter-spacing: 2px;
   margin: 0;
+  transition: all 0.3s ease;
 }
 
 .nav {
@@ -1078,16 +1164,18 @@ body {
 }
 
 .philosophy-card {
-  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(255, 247, 243, 0.95) 50%, rgba(255, 225, 230, 0.9) 100%);
+  background: var(--card-bg);
   padding: var(--space-8);
-  border-radius: 30px;
-  box-shadow: 0 6px 24px rgba(255, 184, 133, 0.12), 0 3px 12px rgba(255, 154, 162, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.05);
   transition: all 0.4s ease;
-  border: 2px solid rgba(255, 184, 133, 0.25);
+  border: none;
   text-align: center;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  transform: translateY(0);
+  animation: cardFloat 6s ease-in-out infinite;
 }
 
 .philosophy-card::before {
@@ -1102,9 +1190,9 @@ body {
 }
 
 .philosophy-card:hover {
-  transform: var(--lift-soft);
-  box-shadow: 0 12px 36px rgba(255, 184, 133, 0.2), 0 6px 18px rgba(255, 154, 162, 0.15);
-  border-color: var(--heart-coral);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--background-soft) 100%);
 }
 
 .philosophy-card:hover .philosophy-emoji {
@@ -1117,11 +1205,24 @@ body {
 }
 
 .philosophy-emoji {
-  font-size: 3rem;
+  font-size: 4rem;
   display: block;
   margin-bottom: var(--space-4);
-  animation: gentleFloat 5s ease-in-out infinite;
-  filter: drop-shadow(0 2px 6px rgba(255, 185, 151, 0.3));
+  animation: emojiPulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+  transition: all 0.3s ease;
+}
+
+.philosophy-card:nth-child(1) .philosophy-emoji {
+  color: #FF6B9D;
+}
+
+.philosophy-card:nth-child(2) .philosophy-emoji {
+  color: #64B5F6;
+}
+
+.philosophy-card:nth-child(3) .philosophy-emoji {
+  color: #66BB6A;
 }
 
 .philosophy-card h3 {

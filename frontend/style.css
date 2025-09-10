@@ -1,37 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&display=swap');
 
-/* ZEPHY Heart-Centered Color Palette - Inspired by the new logo */
+/* Minimal Pink & White Color Palette */
 :root {
-  /* Primary Heart Colors - From the layered heart logo */
-  --heart-peach: #FFB885;      /* Warm outer heart layer */
-  --heart-coral: #FF9AA2;      /* Middle heart layer */
-  --heart-pink: #FF6B9D;       /* Inner bright heart */
-  --heart-purple: #6366B5;     /* Logo outline purple */
-  --heart-magenta: #E91E63;    /* Deep center heart */
+  /* Primary Colors - Soft pink and white theme */
+  --primary-pink: #FFE1E6;     /* Very soft pink background */
+  --accent-pink: #FF9AA2;      /* Soft coral pink */
+  --highlight-pink: #FF6B9D;   /* Bright pink for highlights */
+  --text-pink: #D81B60;        /* Deep pink for text */
+  --pure-white: #FFFFFF;       /* Pure white */
   
-  /* Supporting Warm Palette */
-  --warm-cream: #FFF7F3;
-  --soft-peach: #FFEEE6;
-  --gentle-pink: #FFE1E6;
-  --lavender-mist: #F0EFFF;
-  --nature-green: #E8F5E8;
-  
-  /* Accent Colors - Nature elements from logo */
-  --butterfly-blue: #87CEEB;
-  --flower-purple: #DDA0DD;
-  --cherry-red: #FF6B6B;
-  --leaf-green: #98D8C8;
+  /* Neutral Tones */
+  --soft-gray: #F8F9FA;
+  --light-gray: #E9ECEF;
+  --medium-gray: #6C757D;
+  --dark-gray: #495057;
   
   /* Semantic Colors */
-  --primary: var(--heart-coral);
-  --primary-light: var(--heart-peach);
-  --primary-dark: var(--heart-purple);
-  --accent: var(--heart-pink);
-  --background: var(--warm-cream);
-  --card-bg: var(--soft-peach);
-  --text-primary: #5D4E75;
-  --text-secondary: #8B7355;
-  --text-light: #A8998B;
+  --primary: var(--accent-pink);
+  --secondary: var(--highlight-pink);
+  --background: var(--pure-white);
+  --background-soft: var(--primary-pink);
+  --card-bg: var(--pure-white);
+  --text-primary: var(--dark-gray);
+  --text-secondary: var(--medium-gray);
+  --text-light: var(--medium-gray);
+  --border-light: var(--light-gray);
 
   /* Neutral Colors - Warm Grays */
   --gray-50: #fafafa;
@@ -111,7 +104,7 @@ body {
   font-size: var(--font-size-base);
   line-height: 1.6;
   color: var(--text-primary);
-  background: linear-gradient(135deg, var(--warm-cream) 0%, var(--soft-peach) 30%, var(--gentle-pink) 70%, var(--lavender-mist) 100%);
+  background: linear-gradient(135deg, var(--pure-white) 0%, var(--primary-pink) 100%);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -119,9 +112,9 @@ body {
 
 /* Transparent logo styles */
 .transparent-header {
-  background: rgba(255, 247, 243, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 185, 151, 0.2);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .transparent-logo {
@@ -131,12 +124,12 @@ body {
 
 .transparent-logo:hover {
   opacity: 1;
-  filter: drop-shadow(0 4px 8px rgba(255, 185, 151, 0.3));
+  filter: drop-shadow(0 4px 8px rgba(255, 154, 162, 0.3));
 }
 
 /* Login Page Styles */
 .login-body {
-  background: radial-gradient(ellipse at center, var(--lavender-mist) 0%, var(--gentle-pink) 30%, var(--soft-peach) 70%, var(--warm-cream) 100%);
+  background: linear-gradient(135deg, var(--pure-white) 0%, var(--primary-pink) 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -195,14 +188,13 @@ body {
   animation: pulse 2s ease-in-out infinite;
 }
 
-/* Emotion Words Orbit */
-.emotion-orbit {
+/* Emotion Words Circle - Static */
+.emotion-circle {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  animation: orbitRotate 30s linear infinite;
 }
 
 .emotion-word {
@@ -219,18 +211,18 @@ body {
 }
 
 .emotion-word.highlighted {
-  background: linear-gradient(135deg, var(--heart-coral), var(--heart-pink));
+  background: var(--accent-pink);
   color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  box-shadow: 0 4px 15px rgba(255, 154, 162, 0.4);
+  box-shadow: 0 2px 8px rgba(255, 154, 162, 0.3);
   opacity: 1;
 }
 
 .emotion-word.faded {
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--pure-white);
   color: var(--text-secondary);
-  opacity: 0.7;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0.8;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 /* Position emotion words in orbit */
@@ -255,10 +247,7 @@ body {
   font-size: var(--font-size-4xl);
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--heart-purple), var(--heart-pink));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-primary);
 }
 
 .welcome-message {
@@ -290,14 +279,15 @@ body {
 }
 
 .login-button.primary {
-  background: linear-gradient(135deg, var(--heart-coral), var(--heart-pink));
+  background: var(--accent-pink);
   color: white;
   border: none;
 }
 
 .login-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(255, 154, 162, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 154, 162, 0.3);
+  background: var(--highlight-pink);
 }
 
 .login-note {
@@ -307,30 +297,6 @@ body {
   margin-top: 1rem;
 }
 
-/* Floating Background Elements */
-.floating-emotions {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.floating-element {
-  position: absolute;
-  font-size: 2rem;
-  opacity: 0.6;
-  animation: float 4s ease-in-out infinite;
-}
-
-.floating-element.el-1 { top: 10%; left: 10%; animation-delay: 0s; }
-.floating-element.el-2 { top: 20%; right: 20%; animation-delay: 1s; }
-.floating-element.el-3 { bottom: 30%; left: 15%; animation-delay: 2s; }
-.floating-element.el-4 { bottom: 20%; right: 10%; animation-delay: 3s; }
-.floating-element.el-5 { top: 50%; left: 5%; animation-delay: 1.5s; }
-.floating-element.el-6 { top: 60%; right: 5%; animation-delay: 2.5s; }
 
 /* Emotion Message */
 .emotion-message {
@@ -338,13 +304,13 @@ body {
   top: 20px;
   left: 50%;
   transform: translateX(-50%) translateY(-20px);
-  background: linear-gradient(135deg, var(--heart-peach), var(--heart-coral));
+  background: var(--accent-pink);
   color: white;
   padding: 1rem 2rem;
   border-radius: var(--radius-full);
   font-family: var(--font-secondary);
   font-weight: 600;
-  box-shadow: 0 4px 20px rgba(255, 185, 151, 0.4);
+  box-shadow: 0 4px 15px rgba(255, 154, 162, 0.3);
   opacity: 0;
   transition: all 0.3s ease;
   z-index: 1000;
@@ -369,21 +335,13 @@ body {
 }
 
 /* Animations */
-@keyframes orbitRotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 @keyframes logoGlow {
   0% {
-    box-shadow: 0 0 30px rgba(255, 185, 151, 0.4);
+    box-shadow: 0 0 20px rgba(255, 154, 162, 0.3);
   }
   100% {
-    box-shadow: 0 0 50px rgba(255, 107, 157, 0.6);
+    box-shadow: 0 0 30px rgba(255, 107, 157, 0.4);
   }
 }
 

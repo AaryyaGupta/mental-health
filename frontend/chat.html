@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Chat - Your favourite savior</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h2>MindSpace</h2>
+            </div>
+            <nav class="nav">
+                <a href="/" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="chat-container">
+        <div class="chat-header">
+            <h1>Let's start your conversation</h1>
+            <p>First, help us understand how you're feeling today</p>
+        </div>
+
+        <form id="traitsForm" class="traits-form">
+            <div class="mood-inputs">
+                <div class="input-group">
+                    <label for="mood">How's your mood today? (1-5)</label>
+                    <input type="range" id="mood" name="mood" min="1" max="5" value="3" required>
+                    <div class="range-labels">
+                        <span>Low</span>
+                        <span>High</span>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="stress">What's your stress level? (1-5)</label>
+                    <input type="range" id="stress" name="stress" min="1" max="5" value="3" required>
+                    <div class="range-labels">
+                        <span>Calm</span>
+                        <span>Stressed</span>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Start Chat</button>
+        </form>
+
+        <div id="chatSection" class="chat-section" style="display: none;">
+            <div id="chatBox" class="chat-box"></div>
+            <div class="chat-input-container">
+                <input type="text" id="userMessage" placeholder="Type your message..." class="chat-input" />
+                <button id="sendBtn" class="btn btn-send">Send</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="chat.js"></script>
+</body>
+</html>

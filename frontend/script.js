@@ -1,75 +1,222 @@
-const form = document.getElementById('traitsForm');
-const chatBox = document.getElementById('chatBox');
-const userMessageInput = document.getElementById('userMessage');
-const sendBtn = document.getElementById('sendBtn');
-
-let userTraits = {};
-
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    userTraits = Object.fromEntries(formData.entries());
-    chatBox.innerHTML += `<p><strong>System:</strong> Chat started!</p>`;
-});
-
-sendBtn.addEventListener('click', async () => {
-    const message = userMessageInput.value.trim();
-    if (!message) {
-        alert('Please enter a message before sending.');
-        return;
-    }
-
-    // Disable send button and show loading state
-    sendBtn.disabled = true;
-    sendBtn.textContent = 'Sending...';
+// Landing Page JavaScript
+document.addEventListener('DOMContentLoaded', function() {
     
-    chatBox.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
-    userMessageInput.value = '';
-
-    try {
-        const response = await fetch('/api/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message, traits: userTraits }),
+    // Smooth scrolling for navigation links
+    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
         });
-
-        if (!response.ok) {
-            // Handle HTTP errors
-            const errorData = await response.json().catch(() => ({ error: 'Network error occurred' }));
-            throw new Error(errorData.error || `Server error: ${response.status}`);
-        }
-
-        const data = await response.json();
+    });
+    
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    let lastScrollTop = 0;
+    
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        if (!data.reply) {
-            throw new Error('No response received from AI');
-        }
-
-        chatBox.innerHTML += `<p><strong>AI:</strong> ${data.reply}</p>`;
-        
-    } catch (error) {
-        console.error('Chat error:', error);
-        
-        // Show user-friendly error message
-        let errorMessage = 'Sorry, I encountered an error. ';
-        if (error.message.includes('Failed to fetch') || error.message.includes('Network error')) {
-            errorMessage += 'Please check your internet connection and try again.';
-        } else if (error.message.includes('Too many requests')) {
-            errorMessage += 'Please wait a moment before sending another message.';
-        } else if (error.message.includes('authentication')) {
-            errorMessage += 'There\'s a configuration issue. Please contact support.';
+        if (scrollTop > 50) {
+            header.style.background = 'rgba(255, 255, 255, 0.98)';
+            header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
         } else {
-            errorMessage += 'Please try again in a moment.';
+            header.style.background = 'rgba(255, 255, 255, 0.95)';
+            header.style.boxShadow = 'none';
         }
         
-        chatBox.innerHTML += `<p><strong>Error:</strong> <em>${errorMessage}</em></p>`;
+        lastScrollTop = scrollTop;
+    });
+    
+    // Animate elements on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+    
+    // Observe feature cards and steps
+    const animatedElements = document.querySelectorAll('.feature-card, .step');
+    animatedElements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'all 0.6s ease';
+        observer.observe(element);
+    });
+    
+    // Add hover effects to buttons
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
         
-    } finally {
-        // Re-enable send button
-        sendBtn.disabled = false;
-        sendBtn.textContent = 'Send';
-        
-        // Auto-scroll to bottom
-        chatBox.scrollTop = chatBox.scrollHeight;
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+    
+    // Mobile menu toggle (if needed)
+    const nav = document.querySelector('.nav');
+    const navToggle = document.createElement('button');
+    navToggle.className = 'nav-toggle';
+    navToggle.innerHTML = '☰';
+    navToggle.style.display = 'none';
+    navToggle.style.background = 'none';
+    navToggle.style.border = 'none';
+    navToggle.style.fontSize = '1.5rem';
+    navToggle.style.cursor = 'pointer';
+    navToggle.style.color = 'var(--gray-600)';
+    
+    // Insert toggle button before nav
+    nav.parentNode.insertBefore(navToggle, nav);
+    
+    // Mobile menu functionality
+    function checkScreenSize() {
+        if (window.innerWidth <= 768) {
+            navToggle.style.display = 'block';
+            nav.style.display = 'none';
+        } else {
+            navToggle.style.display = 'none';
+            nav.style.display = 'flex';
+        }
     }
+    
+    navToggle.addEventListener('click', function() {
+        nav.style.display = nav.style.display === 'none' ? 'flex' : 'none';
+    });
+    
+    window.addEventListener('resize', checkScreenSize);
+    checkScreenSize();
+    
+    // Add typing animation to hero tagline
+    const tagline = document.querySelector('.hero-tagline');
+    if (tagline) {
+        const text = tagline.textContent;
+        tagline.textContent = '';
+        
+        setTimeout(() => {
+            let i = 0;
+            const typeWriter = () => {
+                if (i < text.length) {
+                    tagline.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 50);
+                }
+            };
+            typeWriter();
+        }, 1000);
+    }
+    
+    // Add floating animation to hero circles
+    const circles = document.querySelectorAll('.floating-circle');
+    circles.forEach((circle, index) => {
+        circle.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.2)';
+            this.style.transition = 'transform 0.3s ease';
+        });
+        
+        circle.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+        });
+    });
+    
+    // Form validation for contact form (if exists)
+    const contactForm = document.querySelector('#contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Add your form submission logic here
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Simulate form submission
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.textContent = 'Message Sent!';
+                submitBtn.style.background = 'var(--success)';
+                
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = '';
+                    this.reset();
+                }, 2000);
+            }, 1000);
+        });
+    }
+    
+    // Add loading state to Get Started button
+    const getStartedBtn = document.querySelector('.btn-primary[href="chat.html"]');
+    if (getStartedBtn) {
+        getStartedBtn.addEventListener('click', function(e) {
+            this.innerHTML = '<span>Starting...</span>';
+            this.style.opacity = '0.8';
+        });
+    }
+    
+    // Parallax effect for hero section
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const parallax = document.querySelector('.hero-visual');
+        
+        if (parallax) {
+            const speed = scrolled * 0.5;
+            parallax.style.transform = `translateY(${speed}px)`;
+        }
+    });
+    
+    // Add counter animation for features (if we had numbers)
+    function animateCounter(element, target, duration = 2000) {
+        let start = 0;
+        const increment = target / (duration / 16);
+        
+        const counter = setInterval(() => {
+            start += increment;
+            element.textContent = Math.floor(start);
+            
+            if (start >= target) {
+                element.textContent = target;
+                clearInterval(counter);
+            }
+        }, 16);
+    }
+    
+    // Initialize tooltips or additional interactive elements
+    const featureCards = document.querySelectorAll('.feature-card');
+    featureCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    console.log('🌸 MindSpace landing page loaded successfully!');
 });

@@ -3,22 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chatbot</title>
+    <title>MindSpace - Your favourite savior</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Personalized AI Chatbot</h1>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h2>🌸 MindSpace</h2>
+            </div>
+            <nav class="nav">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            <a href="chat.html" class="btn btn-login">Login</a>
+        </div>
+    </header>
 
-    <form id="traitsForm">
-        <label>Mood (1-5): <input type="number" name="mood" min="1" max="5" required></label>
-        <label>Stress Level (1-5): <input type="number" name="stress" min="1" max="5" required></label>
-        <button type="submit">Start Chat</button>
-    </form>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Your favourite savior</h1>
+                <p class="hero-tagline">Because we understands you.</p>
+                <p class="hero-description">
+                    A safe space to understand yourself, explore your thoughts, and find support when you need it. 
+                    Share your feelings, let the AI adapt to your journey, and connect anonymously with peers who understand. 
+                    Small steps, meaningful conversations, real reliefs.
+                </p>
+                <a href="chat.html" class="btn btn-primary btn-large">Get Started / Login</a>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-elements">
+                    <div class="floating-circle circle-1"></div>
+                    <div class="floating-circle circle-2"></div>
+                    <div class="floating-circle circle-3"></div>
+                </div>
+                <div class="hero-illustration">
+                    <div class="meditation-figure">
+                        <div class="head"></div>
+                        <div class="body"></div>
+                        <div class="peace-waves">
+                            <div class="wave wave-1"></div>
+                            <div class="wave wave-2"></div>
+                            <div class="wave wave-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div id="chatBox"></div>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">How MindSpace Works</h2>
+            <p class="section-subtitle">Your journey to better mental health, one conversation at a time</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Personalized AI Support</h3>
+                    <p>Our AI adapts to your emotional state, providing tailored responses based on your mood and stress levels for truly personalized support.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>Anonymous & Safe</h3>
+                    <div class="feature-icon">🔒</div>
+                    <p>Share freely in a completely anonymous environment. Your privacy and safety are our top priorities in every conversation.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💝</div>
+                    <h3>Peer Circle</h3>
+                    <p>Connect with others who understand your journey. Find support in a community that cares and shares similar experiences.</p>
+                </div>
+            </div>
 
-    <input type="text" id="userMessage" placeholder="Type your message..." />
-    <button id="sendBtn">Send</button>
+            <div class="how-it-works">
+                <h3>Getting Started is Simple</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Share Your Feelings</h4>
+                            <p>Tell us about your current mood and stress level</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Start Conversing</h4>
+                            <p>Chat with our AI that understands and adapts to you</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Find Relief</h4>
+                            <p>Experience meaningful conversations and real support</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>🌸 MindSpace</h3>
+                    <p>Your mental health companion</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#privacy" class="footer-link">Privacy</a>
+                    <a href="#terms" class="footer-link">Terms</a>
+                    <a href="#contact" class="footer-link">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MindSpace. Made with 💜 for mental wellness.</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

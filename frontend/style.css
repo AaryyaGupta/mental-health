@@ -117,6 +117,338 @@ body {
   overflow-x: hidden;
 }
 
+/* Transparent logo styles */
+.transparent-header {
+  background: rgba(255, 247, 243, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 185, 151, 0.2);
+}
+
+.transparent-logo {
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.transparent-logo:hover {
+  opacity: 1;
+  filter: drop-shadow(0 4px 8px rgba(255, 185, 151, 0.3));
+}
+
+/* Login Page Styles */
+.login-body {
+  background: radial-gradient(ellipse at center, var(--lavender-mist) 0%, var(--gentle-pink) 30%, var(--soft-peach) 70%, var(--warm-cream) 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.login-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.login-container {
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+}
+
+/* Emotion Orbit Container */
+.emotion-orbit-container {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto 3rem;
+}
+
+.central-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.orbit-logo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(255, 185, 151, 0.4);
+  animation: logoGlow 3s ease-in-out infinite alternate;
+}
+
+.logo-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  border: 2px solid var(--heart-coral);
+  border-radius: 50%;
+  opacity: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Emotion Words Orbit */
+.emotion-orbit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: orbitRotate 30s linear infinite;
+}
+
+.emotion-word {
+  position: absolute;
+  font-family: var(--font-secondary);
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  transform-origin: center;
+}
+
+.emotion-word.highlighted {
+  background: linear-gradient(135deg, var(--heart-coral), var(--heart-pink));
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(255, 154, 162, 0.4);
+  opacity: 1;
+}
+
+.emotion-word.faded {
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--text-secondary);
+  opacity: 0.7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Position emotion words in orbit */
+.emotion-1 { top: 0%; left: 50%; transform: translate(-50%, -50%); }
+.emotion-2 { top: 15%; right: 15%; transform: translate(50%, -50%); }
+.emotion-3 { top: 35%; right: 0%; transform: translate(50%, -50%); }
+.emotion-4 { top: 65%; right: 15%; transform: translate(50%, -50%); }
+.emotion-5 { bottom: 0%; left: 50%; transform: translate(-50%, 50%); }
+.emotion-6 { top: 65%; left: 15%; transform: translate(-50%, -50%); }
+.emotion-7 { top: 35%; left: 0%; transform: translate(-50%, -50%); }
+.emotion-8 { top: 15%; left: 15%; transform: translate(-50%, -50%); }
+.emotion-9 { top: 50%; right: 5%; transform: translate(50%, -50%); }
+.emotion-10 { top: 50%; left: 5%; transform: translate(-50%, -50%); }
+
+/* Welcome Content */
+.welcome-content {
+  color: var(--text-primary);
+}
+
+.welcome-title {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--heart-purple), var(--heart-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.welcome-message {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-xl);
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+/* Login Actions */
+.login-actions {
+  margin-top: 2rem;
+}
+
+.login-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-zen-medium);
+  margin-bottom: 1rem;
+}
+
+.login-button.primary {
+  background: linear-gradient(135deg, var(--heart-coral), var(--heart-pink));
+  color: white;
+  border: none;
+}
+
+.login-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 154, 162, 0.4);
+}
+
+.login-note {
+  font-family: var(--font-secondary);
+  color: var(--text-light);
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+/* Floating Background Elements */
+.floating-emotions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-element {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.6;
+  animation: float 4s ease-in-out infinite;
+}
+
+.floating-element.el-1 { top: 10%; left: 10%; animation-delay: 0s; }
+.floating-element.el-2 { top: 20%; right: 20%; animation-delay: 1s; }
+.floating-element.el-3 { bottom: 30%; left: 15%; animation-delay: 2s; }
+.floating-element.el-4 { bottom: 20%; right: 10%; animation-delay: 3s; }
+.floating-element.el-5 { top: 50%; left: 5%; animation-delay: 1.5s; }
+.floating-element.el-6 { top: 60%; right: 5%; animation-delay: 2.5s; }
+
+/* Emotion Message */
+.emotion-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: linear-gradient(135deg, var(--heart-peach), var(--heart-coral));
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-secondary);
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(255, 185, 151, 0.4);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.emotion-message.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Emotion Ripple Effect */
+.emotion-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 154, 162, 0.3);
+  transform: translate(-50%, -50%);
+  animation: ripple 0.6s linear;
+}
+
+/* Animations */
+@keyframes orbitRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes logoGlow {
+  0% {
+    box-shadow: 0 0 30px rgba(255, 185, 151, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 50px rgba(255, 107, 157, 0.6);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes ripple {
+  to {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .emotion-orbit-container {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .orbit-logo {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .logo-pulse {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .emotion-word {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .welcome-title {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .welcome-message {
+    font-size: var(--font-size-lg);
+  }
+}
+
 /* Heart-centered floating elements background */
 body::before {
   content: '';

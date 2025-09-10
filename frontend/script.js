@@ -218,5 +218,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    console.log('🌸 MindSpace landing page loaded successfully!');
+    console.log('🌙 Zephy landing page loaded successfully!');
 });

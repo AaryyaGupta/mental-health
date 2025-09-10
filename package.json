@@ -1,0 +1,19 @@
+{
+  "name": "mental-health",
+  "version": "1.0.0",
+  "description": "AI mental health chatbot project",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Muskan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "openai": "^4.0.0"
+  }
+}

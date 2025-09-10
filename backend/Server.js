@@ -1,4 +1,4 @@
-require("dotenv").config();
+// Removed dotenv - using Replit secrets only for security
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -9,8 +9,14 @@ const chatRoute = require('./routes/chat');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(bodyParser.json());
+// More secure CORS configuration
+app.use(cors({
+    origin: process.env.NODE_ENV === 'production' ? false : true,
+    credentials: true
+}));
+// Body parser with size limits for security
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 // Serve static frontend files
 app.use(express.static(path.join(__dirname, '../frontend')));

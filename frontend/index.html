@@ -19,59 +19,155 @@
     
     <title>Zephy - Anonymous Student Wellness Hub</title>
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Supabase -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    
+    <!-- Auth Config -->
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script src="auth-modal.js"></script>
 </head>
 <body>
     <!-- Header -->
-    <header class="header transparent-header">
+    <header class="header modern-header">
         <div class="container">
-            <div class="logo">
-                <div class="header-logo">
-                    <img src="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png" alt="ZEPHY Brain-Heart Logo" class="logo-image transparent-logo">
-                    <span class="logo-text">ZEPHY</span>
-                </div>
+            <div class="header-logo">
+                <img src="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png" alt="ZEPHY Brain-Heart Logo" class="logo-image">
+                <span class="logo-text">ZEPHY</span>
             </div>
+            
             <nav class="nav">
-                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html" class="nav-link active">Home</a>
                 <a href="communities.html" class="nav-link">Communities</a>
                 <a href="polls.html" class="nav-link">Polls</a>
                 <a href="fitcheck.html" class="nav-link">Fit Check</a>
             </nav>
+            
             <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" title="Toggle mobile menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <a href="#" class="btn-login">Anonymous Login</a>
+            
+            <div class="header-actions">
+                <div class="user-profile" style="display: none;">
+                    <span class="user-avatar" id="userAvatar">🦋</span>
+                    <span class="user-nickname" id="userNickname">Anonymous</span>
+                </div>
+                <button class="btn-login" onclick="authService.showLoginModal()">Login</button>
+            </div>
 
-            <!-- Modal -->
-            <div id="loginModal">
-              <div class="modal-content">
-                <button class="close-btn">×</button>
-                <h2 class="modal-title">Create Anonymous Profile</h2>
-                <form id="modalForm">
-                  <input type="text" name="nickname" placeholder="Choose a nickname (e.g., StudyBuddy42)" required>
-                  <select name="avatar" title="Select Avatar" required>
-                    <option value="">Select Avatar</option>
-                    <option value="🦋">🦋 Butterfly</option>
-                    <option value="🌟">🌟 Star</option>
-                    <option value="🌸">🌸 Blossom</option>
-                    <option value="🎭">🎭 Mask</option>
-                    <option value="🌙">🌙 Moon</option>
-                    <option value="⚡">⚡ Lightning</option>
-                  </select>
-                  <select name="year" title="Select Academic Year" required>
-                    <option value="">Academic Year</option>
-                    <option value="Freshman">Freshman/1st Year</option>
-                    <option value="Sophomore">Sophomore/2nd Year</option>
-                    <option value="Junior">Junior/3rd Year</option>
-                    <option value="Senior">Senior/Final Year</option>
-                    <option value="Graduate">Graduate Student</option>
-                  </select>
-                  <button type="submit">Join Anonymously</button>
-                </form>
-                <div id="successMessage">Welcome to the anonymous wellness hub!</div>
-                <p class="privacy-note">🔒 Your college cannot see what you post. Only aggregated poll stats are shared.</p>
-              </div>
+            <!-- Authentication Modal -->
+            <div id="authModal" class="auth-modal">
+                <div class="auth-modal-content">
+                    <button class="auth-close-btn" onclick="closeAuthModal()">&times;</button>
+                    
+                    <!-- Login/Signup Toggle Tabs -->
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" onclick="showAuthTab('login')">Sign In</button>
+                        <button class="auth-tab" onclick="showAuthTab('signup')">Sign Up</button>
+                    </div>
+
+                    <!-- Sign In Form -->
+                    <div id="loginForm" class="auth-form active">
+                        <h2 class="auth-title">Welcome Back!</h2>
+                        <p class="auth-subtitle">Sign in to your anonymous account</p>
+
+                        <form id="emailLoginForm" class="auth-input-form">
+                            <div class="auth-input-group">
+                                <input type="email" id="loginEmail" placeholder="Email" required>
+                                <span class="auth-input-icon">📧</span>
+                            </div>
+                            <div class="auth-input-group">
+                                <input type="password" id="loginPassword" placeholder="Password" required>
+                                <span class="auth-input-icon">🔒</span>
+                            </div>
+                            <button type="submit" class="auth-btn primary">Sign In</button>
+                        </form>
+
+                        <div class="auth-divider">
+                            <span>or</span>
+                        </div>
+
+                        <button onclick="authService.signInWithGoogle()" class="auth-btn google">
+                            <span class="google-icon">🔍</span>
+                            Continue with Google
+                        </button>
+                    </div>
+
+                    <!-- Sign Up Form -->
+                    <div id="signupForm" class="auth-form">
+                        <h2 class="auth-title">Join Zephy</h2>
+                        <p class="auth-subtitle">Create your anonymous student profile</p>
+
+                        <form id="emailSignupForm" class="auth-input-form">
+                            <div class="auth-input-group">
+                                <input type="email" id="signupEmail" placeholder="Email" required>
+                                <span class="auth-input-icon">📧</span>
+                            </div>
+                            <div class="auth-input-group">
+                                <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" minlength="6" required>
+                                <span class="auth-input-icon">🔒</span>
+                            </div>
+                            <div class="auth-input-group">
+                                <input type="text" id="signupNickname" placeholder="Nickname (e.g., StudyBuddy42)" maxlength="30" required>
+                                <span class="auth-input-icon">👤</span>
+                            </div>
+                            <div class="auth-input-group">
+                                <select id="signupAvatar" required>
+                                    <option value="">Choose Avatar</option>
+                                    <option value="🦋">🦋 Butterfly</option>
+                                    <option value="🌟">🌟 Star</option>
+                                    <option value="🌸">🌸 Blossom</option>
+                                    <option value="🎭">🎭 Mask</option>
+                                    <option value="🌙">🌙 Moon</option>
+                                    <option value="⚡">⚡ Lightning</option>
+                                    <option value="🎨">🎨 Artist</option>
+                                    <option value="🎯">🎯 Target</option>
+                                    <option value="🌿">🌿 Leaf</option>
+                                    <option value="🔥">🔥 Fire</option>
+                                </select>
+                                <span class="auth-input-icon">🎭</span>
+                            </div>
+                            <div class="auth-input-group">
+                                <select id="signupYear" required>
+                                    <option value="">Academic Year</option>
+                                    <option value="Freshman">Freshman/1st Year</option>
+                                    <option value="Sophomore">Sophomore/2nd Year</option>
+                                    <option value="Junior">Junior/3rd Year</option>
+                                    <option value="Senior">Senior/Final Year</option>
+                                    <option value="Graduate">Graduate Student</option>
+                                    <option value="PhD">PhD Student</option>
+                                </select>
+                                <span class="auth-input-icon">🎓</span>
+                            </div>
+                            <button type="submit" class="auth-btn primary">Create Account</button>
+                        </form>
+
+                        <div class="auth-divider">
+                            <span>or</span>
+                        </div>
+
+                        <button onclick="authService.signInWithGoogle()" class="auth-btn google">
+                            <span class="google-icon">🔍</span>
+                            Sign up with Google
+                        </button>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="authLoading" class="auth-loading" style="display: none;">
+                        <div class="auth-spinner"></div>
+                        <p>Processing...</p>
+                    </div>
+
+                    <!-- Success Message -->
+                    <div id="authSuccess" class="auth-success" style="display: none;">
+                        <div class="success-icon">✅</div>
+                        <h3>Welcome to Zephy!</h3>
+                        <p>Your account has been created successfully.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </header>

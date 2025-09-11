@@ -6,31 +6,41 @@
     <title>Polls - Zephy Student Wellness Hub</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="polls.css">
+    
+    <!-- Supabase -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    
+    <!-- Auth Config -->
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
 </head>
 <body>
     <!-- Header -->
-    <header class="header">
+    <header class="header modern-header">
         <div class="container">
-            <div class="logo">
-                <div class="header-logo">
-                    <img src="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png" alt="ZEPHY Brain-Heart Logo" class="logo-image">
-                    <span class="logo-text">ZEPHY</span>
-                </div>
+            <div class="header-logo">
+                <img src="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png" alt="ZEPHY Brain-Heart Logo" class="logo-image">
+                <span class="logo-text">ZEPHY</span>
             </div>
+            
             <nav class="nav">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="communities.html" class="nav-link">Communities</a>
                 <a href="polls.html" class="nav-link active">Polls</a>
                 <a href="fitcheck.html" class="nav-link">Fit Check</a>
             </nav>
+            
             <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" title="Toggle mobile menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <div class="user-profile">
-                <span class="user-avatar" id="userAvatar">🦋</span>
-                <span class="user-nickname" id="userNickname">Anonymous</span>
+            
+            <div class="header-actions">
+                <div class="user-profile active">
+                    <span class="user-avatar" id="userAvatar">🦋</span>
+                    <span class="user-nickname" id="userNickname">Anonymous</span>
+                </div>
             </div>
         </div>
     </header>

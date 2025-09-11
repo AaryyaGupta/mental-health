@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="lader.css">
+</head>
+<body>
+    <!-- Zephy Loader -->
+<div id="loader">
+  <div class="loader-logo">🌿</div>
+  <p class="loader-text">Zephy is preparing your space…</p>
+</div>
+
+<!-- Website Content -->
+<div id="content" style="display: none;">
+  <!-- your normal page content here -->
+</div>
+<script>
+  window.addEventListener("load", function() {
+    const loader = document.getElementById("loader");
+    const content = document.getElementById("content");
+    
+    // Small delay for smooth transition
+    setTimeout(() => {
+      loader.style.opacity = "0";
+      loader.style.transition = "opacity 0.8s ease";
+      setTimeout(() => {
+        loader.style.display = "none";
+        content.style.display = "block";
+      }, 800);
+    }, 1200); // keep loader for ~1.2 sec
+  });
+</script>
+
+
+</body>
+</html>

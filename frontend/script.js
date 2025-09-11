@@ -220,3 +220,36 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('🌙 Zephy landing page loaded successfully!');
 });
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginBtn = document.querySelector('.btn-login');
+      const closeBtn = document.querySelector('.close-btn');
+      const modal = document.getElementById('loginModal');
+      const form = document.getElementById('modalForm');
+      const successMessage = document.getElementById('successMessage');
+
+      // Open modal on click
+      loginBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        modal.style.display = 'flex';
+        form.style.display = 'block';
+        successMessage.style.display = 'none';
+      });
+
+      // Close modal
+      closeBtn.addEventListener('click', function(){
+        modal.style.display = 'none';
+      });
+
+      // Handle form submission
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const data = new FormData(form);
+        const userData = Object.fromEntries(data.entries());
+        console.log(userData); // For debug or send to server
+
+        form.style.display = 'none';
+        successMessage.style.display = 'block';
+
+        setTimeout(() => { modal.style.display = 'none'; }, 2500);
+      });
+    });

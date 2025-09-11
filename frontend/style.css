@@ -124,6 +124,9 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Transparent logo styles */
@@ -149,7 +152,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .login-main {
@@ -215,6 +219,8 @@ body {
 
 .emotion-word {
   position: absolute;
+  top: 50%;
+  left: 50%;
   font-family: var(--font-secondary);
   font-weight: 600;
   font-size: 1.1rem;
@@ -241,17 +247,22 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* Position emotion words in orbit */
-.emotion-1 { top: 0%; left: 50%; transform: translate(-50%, -50%); }
-.emotion-2 { top: 15%; right: 15%; transform: translate(50%, -50%); }
-.emotion-3 { top: 35%; right: 0%; transform: translate(50%, -50%); }
-.emotion-4 { top: 65%; right: 15%; transform: translate(50%, -50%); }
-.emotion-5 { bottom: 0%; left: 50%; transform: translate(-50%, 50%); }
-.emotion-6 { top: 65%; left: 15%; transform: translate(-50%, -50%); }
-.emotion-7 { top: 35%; left: 0%; transform: translate(-50%, -50%); }
-.emotion-8 { top: 15%; left: 15%; transform: translate(-50%, -50%); }
-.emotion-9 { top: 50%; right: 5%; transform: translate(50%, -50%); }
-.emotion-10 { top: 50%; left: 5%; transform: translate(-50%, -50%); }
+.emotion-word:hover {
+  filter: brightness(1.15);
+  transform: inherit;
+}
+
+/* Perfect circular positioning for emotion words */
+.emotion-1 { transform: rotate(0deg) translateY(-180px) rotate(0deg) translate(-50%, -50%); }
+.emotion-2 { transform: rotate(36deg) translateY(-180px) rotate(-36deg) translate(-50%, -50%); }
+.emotion-3 { transform: rotate(72deg) translateY(-180px) rotate(-72deg) translate(-50%, -50%); }
+.emotion-4 { transform: rotate(108deg) translateY(-180px) rotate(-108deg) translate(-50%, -50%); }
+.emotion-5 { transform: rotate(144deg) translateY(-180px) rotate(-144deg) translate(-50%, -50%); }
+.emotion-6 { transform: rotate(180deg) translateY(-180px) rotate(-180deg) translate(-50%, -50%); }
+.emotion-7 { transform: rotate(216deg) translateY(-180px) rotate(-216deg) translate(-50%, -50%); }
+.emotion-8 { transform: rotate(252deg) translateY(-180px) rotate(-252deg) translate(-50%, -50%); }
+.emotion-9 { transform: rotate(288deg) translateY(-180px) rotate(-288deg) translate(-50%, -50%); }
+.emotion-10 { transform: rotate(324deg) translateY(-180px) rotate(-324deg) translate(-50%, -50%); }
 
 /* Welcome Content */
 .welcome-content {
@@ -392,27 +403,6 @@ body {
   }
 }
 
-/* Dark Mode Toggle */
-.dark-mode-toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--card-bg);
-  border: 2px solid var(--primary);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  z-index: 1001;
-}
-
-.dark-mode-toggle:hover {
-  transform: scale(1.1) rotate(10deg);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
 
 /* Enhanced Login Button */
 .btn-login {
@@ -485,6 +475,18 @@ body {
     padding: 0.4rem 0.8rem;
   }
   
+  /* Adjust circular positioning for smaller screens */
+  .emotion-1 { transform: rotate(0deg) translateY(-130px) rotate(0deg) translate(-50%, -50%); }
+  .emotion-2 { transform: rotate(36deg) translateY(-130px) rotate(-36deg) translate(-50%, -50%); }
+  .emotion-3 { transform: rotate(72deg) translateY(-130px) rotate(-72deg) translate(-50%, -50%); }
+  .emotion-4 { transform: rotate(108deg) translateY(-130px) rotate(-108deg) translate(-50%, -50%); }
+  .emotion-5 { transform: rotate(144deg) translateY(-130px) rotate(-144deg) translate(-50%, -50%); }
+  .emotion-6 { transform: rotate(180deg) translateY(-130px) rotate(-180deg) translate(-50%, -50%); }
+  .emotion-7 { transform: rotate(216deg) translateY(-130px) rotate(-216deg) translate(-50%, -50%); }
+  .emotion-8 { transform: rotate(252deg) translateY(-130px) rotate(-252deg) translate(-50%, -50%); }
+  .emotion-9 { transform: rotate(288deg) translateY(-130px) rotate(-288deg) translate(-50%, -50%); }
+  .emotion-10 { transform: rotate(324deg) translateY(-130px) rotate(-324deg) translate(-50%, -50%); }
+  
   .welcome-title {
     font-size: var(--font-size-3xl);
   }
@@ -525,23 +527,29 @@ body {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+  justify-content: flex-start;
 }
 
 .logo-image {
   width: 40px;
   height: 40px;
+  object-fit: contain;
+  display: block;
   animation: heartPulse 3s ease-in-out infinite;
   filter: drop-shadow(0 2px 8px rgba(255, 184, 133, 0.3));
 }
 
 .logo-text {
-  color: var(--text-primary);
+  color: #2D1B69;
   font-size: var(--font-size-2xl);
   font-weight: 800;
-  font-family: 'Dancing Script', 'Brush Script MT', cursive;
+  font-family: var(--font-primary);
   letter-spacing: 2px;
   margin: 0;
   transition: all 0.3s ease;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .nav {
@@ -806,13 +814,13 @@ body {
   font-family: var(--font-primary);
   font-size: var(--font-size-5xl);
   font-weight: 800;
-  background: linear-gradient(135deg, var(--heart-purple) 0%, var(--heart-pink) 50%, var(--heart-coral) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #2D1B69;
   margin-bottom: var(--space-4);
   letter-spacing: 3px;
-  text-shadow: 0 4px 12px rgba(99, 102, 181, 0.3);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
   animation: titleShimmer 8s ease-in-out infinite;
 }
 
@@ -970,14 +978,15 @@ body {
 .card-header h3 {
   font-size: var(--font-size-2xl);
   font-weight: 700;
-  background: linear-gradient(135deg, var(--heart-purple) 0%, var(--heart-pink) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #2D1B69;
   margin: 0;
   font-family: var(--font-primary);
   letter-spacing: 1px;
-  text-shadow: 0 2px 8px rgba(99, 102, 181, 0.1);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  line-height: 1.2;
 }
 
 .card-content {

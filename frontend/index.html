@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Zephy - A space that sees you. Personalized mental health support through AI that understands your thoughts and feelings matter.">
-    <meta name="keywords" content="mental health, AI support, personalized therapy, emotional wellness, anonymous support">
+    <meta name="description" content="Zephy - Anonymous Student Wellness Hub. Safe anonymous communities, AI support, and wellness polls for college students.">
+    <meta name="keywords" content="student wellness, anonymous community, college mental health, stress support, student polls">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Zephy - A Space That Sees You">
-    <meta property="og:description" content="Because your thoughts and feelings matter. Find personalized mental health support in a safe, understanding space.">
+    <meta property="og:title" content="Zephy - Anonymous Student Wellness Hub">
+    <meta property="og:description" content="Safe anonymous communities for students. Share, vote, chat, and get AI wellness support - completely anonymous.">
     <meta property="og:site_name" content="Zephy">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Zephy - A Space That Sees You">
-    <meta name="twitter:description" content="Because your thoughts and feelings matter. Find personalized mental health support in a safe, understanding space.">
+    <meta name="twitter:title" content="Zephy - Anonymous Student Wellness Hub">
+    <meta name="twitter:description" content="Safe anonymous communities for students. Share, vote, chat, and get AI wellness support - completely anonymous.">
     
-    <title>Zephy - A Space That Sees You</title>
+    <title>Zephy - Anonymous Student Wellness Hub</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -26,35 +26,51 @@
         <div class="container">
             <div class="logo">
                 <div class="header-logo">
-                    <img src="/attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png" alt="ZEPHY Brain-Heart Logo" class="logo-image transparent-logo">
+                    <img src="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png" alt="ZEPHY Brain-Heart Logo" class="logo-image transparent-logo">
                     <span class="logo-text">ZEPHY</span>
                 </div>
             </div>
             <nav class="nav">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="communities.html" class="nav-link">Communities</a>
+                <a href="polls.html" class="nav-link">Polls</a>
+                <a href="fitcheck.html" class="nav-link">Fit Check</a>
             </nav>
-            <a href="#" class="btn-login">Login</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" title="Toggle mobile menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a href="#" class="btn-login">Anonymous Login</a>
 
             <!-- Modal -->
             <div id="loginModal">
               <div class="modal-content">
                 <button class="close-btn">×</button>
-                <h2 style="text-align:center; margin-bottom:20px; color:#4a90e2;">User Details</h2>
+                <h2 class="modal-title">Create Anonymous Profile</h2>
                 <form id="modalForm">
-                  <input type="text" name="name" placeholder="Name" required>
-                  <input type="number" name="age" placeholder="Age" required>
-                  <select name="gender" required>
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                  <input type="text" name="nickname" placeholder="Choose a nickname (e.g., StudyBuddy42)" required>
+                  <select name="avatar" title="Select Avatar" required>
+                    <option value="">Select Avatar</option>
+                    <option value="🦋">🦋 Butterfly</option>
+                    <option value="🌟">🌟 Star</option>
+                    <option value="🌸">🌸 Blossom</option>
+                    <option value="🎭">🎭 Mask</option>
+                    <option value="🌙">🌙 Moon</option>
+                    <option value="⚡">⚡ Lightning</option>
                   </select>
-                  <input type="text" name="profession" placeholder="Profession" required>
-                  <button type="submit">Submit</button>
+                  <select name="year" title="Select Academic Year" required>
+                    <option value="">Academic Year</option>
+                    <option value="Freshman">Freshman/1st Year</option>
+                    <option value="Sophomore">Sophomore/2nd Year</option>
+                    <option value="Junior">Junior/3rd Year</option>
+                    <option value="Senior">Senior/Final Year</option>
+                    <option value="Graduate">Graduate Student</option>
+                  </select>
+                  <button type="submit">Join Anonymously</button>
                 </form>
-                <div id="successMessage">Your response has been submitted!</div>
+                <div id="successMessage">Welcome to the anonymous wellness hub!</div>
+                <p class="privacy-note">🔒 Your college cannot see what you post. Only aggregated poll stats are shared.</p>
               </div>
             </div>
         </div>
@@ -66,13 +82,13 @@
             <div class="brand-hero">
                 <div class="brand-logo-container">
                     <div class="main-logo">
-                        <img src="../attached_assets/generated_images/Clean_transparent_heart_logo_7f88ece0.png" alt="ZEPHY Heart Logo" class="hero-logo-image">
+                        <img src="attached_assets/generated_images/Clean_transparent_heart_logo_7f88ece0.png" alt="ZEPHY Heart Logo" class="hero-logo-image">
                         <div class="logo-glow"></div>
                     </div>
                     <div class="brand-content">
                         <h1 class="brand-title">ZEPHY</h1>
-                        <p class="brand-tagline">Where hearts and minds find peace</p>
-                        <p class="brand-welcome">Take a deep breath - you belong here</p>
+                        <p class="brand-tagline">Anonymous Student Wellness Hub</p>
+                        <p class="brand-welcome">Your safe space to connect, share, and grow</p>
                     </div>
                 </div>
             </div>
@@ -80,47 +96,80 @@
             <div class="zen-essence">
                 <div class="essence-text">
                     <p class="essence-description">
-                        Sometimes we need a quiet corner of the world to simply be. 
-                        Here, your feelings are heard, your thoughts are valued, 
-                        and gentle support is always within reach.
+                        College life can be overwhelming. Here's your anonymous safe space to connect with fellow students, 
+                        share experiences, get support, and check in on your wellness - all without judgment or exposure.
                     </p>
                 </div>
                 
                 <div class="feature-cards">
-                    <div class="feature-card mentalfit-card">
+                    <div class="feature-card community-card">
+                        <div class="card-header">
+                            <div class="card-icon-wrapper">
+                                <div class="card-icon">�</div>
+                                <div class="icon-pulse"></div>
+                            </div>
+                            <h3>ANONYMOUS COMMUNITIES</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="card-description">Join student groups and share experiences without revealing your identity</p>
+                            <ul class="feature-list">
+                                <li><span class="list-icon">�</span> Anonymous Posts & Questions</li>
+                                <li><span class="list-icon">�</span> Community Discussions</li>
+                                <li><span class="list-icon">🔒</span> Complete Privacy</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card polls-card">
                         <div class="card-header">
                             <div class="card-icon-wrapper">
                                 <div class="card-icon">📊</div>
                                 <div class="icon-pulse"></div>
                             </div>
-                            <h3>MENTAL FIT CHECK</h3>
+                            <h3>PULSE POLLS</h3>
                         </div>
                         <div class="card-content">
-                            <p class="card-description">Gently explore your emotions and manage stress with personalized insights</p>
+                            <p class="card-description">Vote on campus topics and see how fellow students really feel</p>
                             <ul class="feature-list">
-                                <li><span class="list-icon">📋</span> Mental Wellness Quiz</li>
-                                <li><span class="list-icon">📊</span> Stress Level</li>
-                                <li><span class="list-icon">🎯</span> Personalized Recommendations</li>
+                                <li><span class="list-icon">🗳️</span> Anonymous Voting</li>
+                                <li><span class="list-icon">📈</span> Live Results</li>
+                                <li><span class="list-icon">🎯</span> Campus Insights</li>
                             </ul>
-
-                            
-                           
                         </div>
                     </div>
-                    <div class="feature-card peers-card">
+                    
+                    <div class="feature-card mentalfit-card">
                         <div class="card-header">
                             <div class="card-icon-wrapper">
-                                <div class="card-icon">👥</div>
+                                <div class="card-icon">🧠</div>
                                 <div class="icon-pulse"></div>
                             </div>
-                            <h3>ANONYMOUS PEERS</h3>
+                            <h3>WELLNESS FIT CHECK</h3>
                         </div>
                         <div class="card-content">
-                            <p class="card-description">Connect safely with others who understand your journey</p>
+                            <p class="card-description">Quick wellness assessment with personalized recommendations</p>
                             <ul class="feature-list">
-                                <li><span class="list-icon">👥</span> Join/Create a community</li>
-                                <li><span class="list-icon">💬</span> Individual chat room</li>
-                                <li><span class="list-icon">🌱</span> Shared experiences</li>
+                                <li><span class="list-icon">�</span> Stress & Mood Check</li>
+                                <li><span class="list-icon">🎯</span> Personal Recommendations</li>
+                                <li><span class="list-icon">🌱</span> Daily Wellness Tips</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card chat-card">
+                        <div class="card-header">
+                            <div class="card-icon-wrapper">
+                                <div class="card-icon">💬</div>
+                                <div class="icon-pulse"></div>
+                            </div>
+                            <h3>PEER CONNECTIONS</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="card-description">One-on-one anonymous chats with fellow students</p>
+                            <ul class="feature-list">
+                                <li><span class="list-icon">👤</span> Anonymous Profiles</li>
+                                <li><span class="list-icon">🤝</span> Peer Support</li>
+                                <li><span class="list-icon">🔄</span> Match with Similar Students</li>
                             </ul>
                         </div>
                     </div>
@@ -128,11 +177,16 @@
                 
                 <div class="zen-action">
                     <div class="action-card">
-                        <p class="action-invitation">Ready to begin your gentle journey?</p>
-                        <a href="chat.html" class="zen-button">
-                            <span class="button-text">Start a conversation</span>
-                        </a>
-                        <p class="action-note">No rush, no pressure - just presence</p>
+                        <p class="action-invitation">Ready to join your anonymous student community?</p>
+                        <div class="action-buttons">
+                            <a href="communities.html" class="zen-button primary">
+                                <span class="button-text">Join Communities</span>
+                            </a>
+                            <a href="fitcheck.html" class="zen-button secondary">
+                                <span class="button-text">Wellness Check</span>
+                            </a>
+                        </div>
+                        <p class="action-note">100% anonymous - your privacy is protected</p>
                     </div>
                 </div>
             </div>

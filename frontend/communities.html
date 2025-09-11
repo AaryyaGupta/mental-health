@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communities - Zephy Student Wellness Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="communities.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <div class="header-logo">
+                    <img src="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png" alt="ZEPHY Brain-Heart Logo" class="logo-image">
+                    <span class="logo-text">ZEPHY</span>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="communities.html" class="nav-link active">Communities</a>
+                <a href="polls.html" class="nav-link">Polls</a>
+                <a href="fitcheck.html" class="nav-link">Fit Check</a>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" title="Toggle mobile menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="user-profile">
+                <span class="user-avatar" id="userAvatar">🦋</span>
+                <span class="user-nickname" id="userNickname">Anonymous</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="communities-main">
+        <!-- Community Selector -->
+        <section class="community-selector">
+            <div class="container">
+                <h1 class="page-title">🏫 Anonymous Student Communities</h1>
+                <p class="page-subtitle">Connect with fellow students in safe, anonymous spaces</p>
+                
+                <div class="community-tabs">
+                    <button class="tab-btn active" data-community="all">🌍 All Posts</button>
+                    <button class="tab-btn" data-community="exam-stress">📚 Exam Stress Circle</button>
+                    <button class="tab-btn" data-community="homesick">🏠 Homesick Freshers</button>
+                    <button class="tab-btn" data-community="final-year">🎓 Final-Year Anxiety</button>
+                    <button class="tab-btn" data-community="social">🤝 Social Connections</button>
+                    <button class="tab-btn" data-community="academic">📝 Academic Support</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Post Creation -->
+        <section class="post-creation">
+            <div class="container">
+                <div class="create-post-card">
+                    <div class="post-header">
+                        <span class="post-avatar">🦋</span>
+                        <div class="post-input-container">
+                            <textarea id="postContent" placeholder="Share something with your fellow students... (completely anonymous)" maxlength="500"></textarea>
+                            <div class="post-options">
+                                <select id="postCommunity" title="Select Community">
+                                    <option value="all">🌍 General Discussion</option>
+                                    <option value="exam-stress">📚 Exam Stress Circle</option>
+                                    <option value="homesick">🏠 Homesick Freshers</option>
+                                    <option value="final-year">🎓 Final-Year Anxiety</option>
+                                    <option value="social">🤝 Social Connections</option>
+                                    <option value="academic">📝 Academic Support</option>
+                                </select>
+                                <div class="post-actions">
+                                    <span class="char-count">0/500</span>
+                                    <button id="createPostBtn" class="post-btn" disabled>
+                                        <span>Post Anonymously</span>
+                                        <span class="btn-icon">📝</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Posts Feed -->
+        <section class="posts-feed">
+            <div class="container">
+                <div id="postsContainer" class="posts-container">
+                    <!-- Posts will be loaded here -->
+                </div>
+                
+                <div class="load-more-container">
+                    <button id="loadMoreBtn" class="load-more-btn">
+                        <span>Load More Posts</span>
+                        <span class="btn-icon">⬇️</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Post Template -->
+    <template id="postTemplate">
+        <article class="post-card">
+            <div class="post-header">
+                <div class="post-author">
+                    <span class="author-avatar"></span>
+                    <div class="author-info">
+                        <span class="author-name"></span>
+                        <span class="post-time"></span>
+                    </div>
+                </div>
+                <div class="post-community-tag"></div>
+            </div>
+            
+            <div class="post-content">
+                <p class="post-text"></p>
+            </div>
+            
+            <div class="post-actions">
+                <div class="post-polls">
+                    <button class="poll-btn" data-poll="support">
+                        <span class="poll-emoji">💝</span>
+                        <span class="poll-text">Support</span>
+                        <span class="poll-count">0</span>
+                    </button>
+                    <button class="poll-btn" data-poll="relate">
+                        <span class="poll-emoji">🤝</span>
+                        <span class="poll-text">Relate</span>
+                        <span class="poll-count">0</span>
+                    </button>
+                    <button class="poll-btn" data-poll="helpful">
+                        <span class="poll-emoji">💡</span>
+                        <span class="poll-text">Helpful</span>
+                        <span class="poll-count">0</span>
+                    </button>
+                </div>
+                <button class="reply-btn">
+                    <span class="reply-icon">💬</span>
+                    <span class="reply-text">Reply</span>
+                    <span class="reply-count">0</span>
+                </button>
+            </div>
+            
+            <div class="replies-section" style="display: none;">
+                <div class="replies-container"></div>
+                <div class="reply-form">
+                    <textarea placeholder="Share your thoughts anonymously..." maxlength="300"></textarea>
+                    <div class="reply-form-actions">
+                        <span class="reply-char-count">0/300</span>
+                        <button class="submit-reply-btn">Reply</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </template>
+
+    <!-- Reply Template -->
+    <template id="replyTemplate">
+        <div class="reply-card">
+            <div class="reply-header">
+                <span class="reply-avatar"></span>
+                <div class="reply-info">
+                    <span class="reply-author"></span>
+                    <span class="reply-time"></span>
+                </div>
+            </div>
+            <div class="reply-content">
+                <p class="reply-text"></p>
+            </div>
+            <div class="reply-actions">
+                <button class="reply-support-btn">
+                    <span class="support-emoji">💝</span>
+                    <span class="support-count">0</span>
+                </button>
+            </div>
+        </div>
+    </template>
+
+    <script src="communities.js"></script>
+</body>
+</html>

@@ -1,10 +1,38 @@
 // Landing Page JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Smooth scrolling for navigation links
-    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    // Mobile Menu Toggle
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const nav = document.querySelector('.nav');
     
-    navLinks.forEach(link => {
+    if (mobileMenuToggle && nav) {
+        mobileMenuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            nav.classList.toggle('mobile-active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = nav.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenuToggle.classList.remove('active');
+                nav.classList.remove('mobile-active');
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!mobileMenuToggle.contains(e.target) && !nav.contains(e.target)) {
+                mobileMenuToggle.classList.remove('active');
+                nav.classList.remove('mobile-active');
+            }
+        });
+    }
+    
+    // Smooth scrolling for navigation links
+    const allNavLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    
+    allNavLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             
@@ -53,13 +81,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
     
-    // Observe feature cards and steps
-    const animatedElements = document.querySelectorAll('.feature-card, .step');
-    animatedElements.forEach(element => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(20px)';
-        element.style.transition = 'all 0.6s ease';
-        observer.observe(element);
+    // Observe all animated elements
+    const animatedElements = document.querySelectorAll('.feature-card, .stat-card');
+    animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    // Observe all animated elements
+    const animatedElements = document.querySelectorAll('.feature-card, .stat-card, .step');
+    animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
     });
     
     // Add hover effects to buttons
@@ -240,16 +274,38 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.style.display = 'none';
       });
 
-      // Handle form submission
+      // Handle anonymous profile creation
       form.addEventListener('submit', function(e){
         e.preventDefault();
         const data = new FormData(form);
-        const userData = Object.fromEntries(data.entries());
-        console.log(userData); // For debug or send to server
+        const userData = {
+          nickname: data.get('nickname'),
+          avatar: data.get('avatar'),
+          year: data.get('year')
+        };
+        
+        // Store user profile locally for anonymous use
+        localStorage.setItem('zephyUser', JSON.stringify(userData));
+        console.log('Anonymous profile created:', userData);
 
         form.style.display = 'none';
         successMessage.style.display = 'block';
 
-        setTimeout(() => { modal.style.display = 'none'; }, 2500);
+        // Update login button to show user is logged in
+        setTimeout(() => { 
+          modal.style.display = 'none';
+          loginBtn.innerHTML = `${userData.avatar} ${userData.nickname}`;
+          loginBtn.style.background = 'linear-gradient(135deg, #27ae60, #219a52)';
+        }, 2500);
       });
+      
+      // Check if user is already logged in
+      const existingUser = localStorage.getItem('zephyUser');
+      if (existingUser) {
+        const userData = JSON.parse(existingUser);
+        loginBtn.innerHTML = `${userData.avatar} ${userData.nickname}`;
+        loginBtn.style.background = 'linear-gradient(135deg, #27ae60, #219a52)';
+      }
     });
+    
+}); // Close DOMContentLoaded event listener

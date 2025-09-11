@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polls - Zephy Student Wellness Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="polls.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <div class="header-logo">
+                    <img src="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png" alt="ZEPHY Brain-Heart Logo" class="logo-image">
+                    <span class="logo-text">ZEPHY</span>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="communities.html" class="nav-link">Communities</a>
+                <a href="polls.html" class="nav-link active">Polls</a>
+                <a href="fitcheck.html" class="nav-link">Fit Check</a>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" title="Toggle mobile menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="user-profile">
+                <span class="user-avatar" id="userAvatar">🦋</span>
+                <span class="user-nickname" id="userNickname">Anonymous</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="polls-main">
+        <!-- Page Header -->
+        <section class="polls-header">
+            <div class="container">
+                <h1 class="page-title">📊 Student Pulse Polls</h1>
+                <p class="page-subtitle">Vote anonymously and see how your fellow students really feel</p>
+                
+                <div class="privacy-notice">
+                    🔒 Your votes are completely anonymous. Only aggregated results are visible.
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Polls -->
+        <section class="active-polls">
+            <div class="container">
+                <h2 class="section-title">🔥 Active Polls</h2>
+                <div id="activePollsContainer" class="polls-grid">
+                    <!-- Active polls will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Create Poll -->
+        <section class="create-poll-section">
+            <div class="container">
+                <div class="create-poll-card">
+                    <h3 class="create-poll-title">📝 Create a Poll</h3>
+                    <p class="create-poll-subtitle">Ask your fellow students a question</p>
+                    
+                    <form id="createPollForm" class="poll-form">
+                        <div class="form-group">
+                            <label for="pollQuestion">Question</label>
+                            <textarea id="pollQuestion" placeholder="e.g., How ready are you for midterms?" maxlength="200" required></textarea>
+                            <span class="char-count">0/200</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pollType">Poll Type</label>
+                            <select id="pollType" required>
+                                <option value="">Select poll type</option>
+                                <option value="emoji">Emoji Reactions</option>
+                                <option value="multiple">Multiple Choice</option>
+                                <option value="scale">Scale (1-5)</option>
+                                <option value="yesno">Yes/No</option>
+                            </select>
+                        </div>
+                        
+                        <div id="pollOptionsContainer" class="poll-options-container" style="display: none;">
+                            <!-- Dynamic options based on poll type -->
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="pollCategory">Category</label>
+                            <select id="pollCategory" required>
+                                <option value="">Select category</option>
+                                <option value="academic">📚 Academic</option>
+                                <option value="wellness">🧠 Wellness</option>
+                                <option value="social">🤝 Social</option>
+                                <option value="campus">🏫 Campus Life</option>
+                                <option value="career">💼 Career</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="create-poll-btn" disabled>
+                            <span>Create Anonymous Poll</span>
+                            <span class="btn-icon">🗳️</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Results -->
+        <section class="recent-results">
+            <div class="container">
+                <h2 class="section-title">📈 Recent Results</h2>
+                <div id="recentResultsContainer" class="results-grid">
+                    <!-- Recent poll results will be loaded here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Poll Card Template -->
+    <template id="pollTemplate">
+        <div class="poll-card">
+            <div class="poll-header">
+                <div class="poll-category"></div>
+                <div class="poll-time"></div>
+            </div>
+            
+            <div class="poll-content">
+                <h3 class="poll-question"></h3>
+                <div class="poll-options"></div>
+            </div>
+            
+            <div class="poll-stats">
+                <span class="poll-votes">0 votes</span>
+                <span class="poll-status">Active</span>
+            </div>
+        </div>
+    </template>
+
+    <!-- Emoji Option Template -->
+    <template id="emojiOptionTemplate">
+        <button class="emoji-option" data-value="">
+            <span class="emoji"></span>
+            <span class="emoji-label"></span>
+            <div class="option-bar">
+                <div class="option-fill" style="width: 0%"></div>
+            </div>
+            <span class="option-count">0</span>
+        </button>
+    </template>
+
+    <!-- Multiple Choice Option Template -->
+    <template id="multipleOptionTemplate">
+        <button class="multiple-option" data-value="">
+            <span class="option-text"></span>
+            <div class="option-bar">
+                <div class="option-fill" style="width: 0%"></div>
+            </div>
+            <span class="option-count">0</span>
+        </button>
+    </template>
+
+    <!-- Scale Option Template -->
+    <template id="scaleOptionTemplate">
+        <div class="scale-container">
+            <div class="scale-labels">
+                <span class="scale-label-start"></span>
+                <span class="scale-label-end"></span>
+            </div>
+            <div class="scale-options">
+                <!-- Scale buttons will be generated dynamically -->
+            </div>
+        </div>
+    </template>
+
+    <!-- Results Modal -->
+    <div id="resultsModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeResultsModal">×</button>
+            <h2 class="modal-title">Poll Results</h2>
+            <div id="resultsContent" class="results-content">
+                <!-- Results will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="polls.js"></script>
+</body>
+</html>

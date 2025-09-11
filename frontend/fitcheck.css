@@ -1,0 +1,498 @@
+/* Wellness Fit Check Styles */
+
+.fitcheck-main {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding-top: 80px;
+}
+
+/* Assessment Section */
+.wellness-assessment {
+    padding: 2rem 0;
+}
+
+.assessment-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.wellness-icon {
+    font-size: 3rem;
+    margin: 1rem 0;
+}
+
+.assessment-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.wellness-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+/* Question Groups */
+.question-group {
+    text-align: center;
+}
+
+.question-title {
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.question-subtitle {
+    color: #7f8c8d;
+    margin-bottom: 1.5rem;
+}
+
+/* Option Buttons */
+.stress-options,
+.sleep-options,
+.mood-options,
+.academic-options {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stress-option,
+.sleep-option,
+.mood-option,
+.academic-option {
+    background: #f8f9fa;
+    border: 3px solid transparent;
+    border-radius: 15px;
+    padding: 1.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 120px;
+    max-width: 140px;
+}
+
+.stress-option:hover,
+.sleep-option:hover,
+.mood-option:hover,
+.academic-option:hover {
+    border-color: #3498db;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+}
+
+.stress-option.selected,
+.sleep-option.selected,
+.mood-option.selected,
+.academic-option.selected {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-color: #3498db;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.4);
+}
+
+.option-emoji {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.option-label {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.option-desc {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Submit Button */
+.submit-assessment-btn {
+    background: linear-gradient(135deg, #27ae60, #219a52);
+    color: white;
+    border: none;
+    padding: 1.5rem 3rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 2rem auto 0;
+    transition: all 0.3s ease;
+    min-width: 250px;
+}
+
+.submit-assessment-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(39, 174, 96, 0.4);
+}
+
+.submit-assessment-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Results Section */
+.results-section {
+    padding: 2rem 0;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.results-section.hidden {
+    display: none;
+}
+
+.results-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.results-title {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.wellness-score {
+    margin: 1.5rem 0;
+}
+
+.score-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+}
+
+.score-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.score-label {
+    font-size: 0.9rem;
+    color: white;
+    opacity: 0.9;
+}
+
+.score-category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.category-icon {
+    font-size: 3rem;
+}
+
+.category-text {
+    text-align: center;
+}
+
+.category-name {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.category-desc {
+    color: #7f8c8d;
+    font-size: 1rem;
+}
+
+/* Recommendations Grid */
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.recommendation-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-3px);
+}
+
+.rec-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.rec-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rec-title {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.rec-content {
+    color: #555;
+    line-height: 1.6;
+}
+
+.task-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.task-icon {
+    font-size: 1.2rem;
+}
+
+.task-text {
+    flex: 1;
+}
+
+.tip-item {
+    background: #e8f4fd;
+    border-left: 4px solid #3498db;
+    border-radius: 5px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Streak and Badges */
+.streak-info {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.streak-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #e67e22;
+}
+
+.streak-label {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.streak-desc {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.badges {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.badge {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    color: white;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+}
+
+.badge-icon {
+    font-size: 1rem;
+}
+
+.badge-templates {
+    display: none;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.retake-btn,
+.share-btn {
+    background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.share-btn {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.retake-btn:hover,
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* History Section */
+.history-section {
+    padding: 2rem 0 3rem;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.history-chart {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #7f8c8d;
+}
+
+.history-summary {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.summary-stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #3498db;
+}
+
+.stat-label {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .stress-options,
+    .sleep-options,
+    .mood-options,
+    .academic-options {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+    }
+    
+    .stress-option,
+    .sleep-option,
+    .mood-option,
+    .academic-option {
+        min-width: 100px;
+        padding: 1rem 0.5rem;
+    }
+    
+    .option-emoji {
+        font-size: 1.5rem;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .score-circle {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .score-number {
+        font-size: 2rem;
+    }
+    
+    .recommendations-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .retake-btn,
+    .share-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellness Fit Check - Zephy Student Wellness Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="fitcheck.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <div class="header-logo">
+                    <img src="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png" alt="ZEPHY Brain-Heart Logo" class="logo-image">
+                    <span class="logo-text">ZEPHY</span>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="communities.html" class="nav-link">Communities</a>
+                <a href="polls.html" class="nav-link">Polls</a>
+                <a href="fitcheck.html" class="nav-link active">Fit Check</a>
+            </nav>
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" title="Toggle mobile menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="user-profile">
+                <span class="user-avatar" id="userAvatar">🦋</span>
+                <span class="user-nickname" id="userNickname">Anonymous</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="fitcheck-main">
+        <!-- Wellness Assessment -->
+        <section class="wellness-assessment" id="assessmentSection">
+            <div class="container">
+                <div class="assessment-header">
+                    <h1 class="page-title">🧠 Wellness Fit Check</h1>
+                    <p class="page-subtitle">Quick check-in on your stress, sleep, and mood</p>
+                    <div class="wellness-icon">🌸</div>
+                </div>
+
+                <div class="assessment-card">
+                    <form id="wellnessForm" class="wellness-form">
+                        <!-- Stress Level -->
+                        <div class="question-group">
+                            <h3 class="question-title">How's your stress level today?</h3>
+                            <p class="question-subtitle">Be honest - this is just for you</p>
+                            <div class="stress-options">
+                                <button type="button" class="stress-option" data-value="1">
+                                    <div class="option-emoji">🧘‍♀️</div>
+                                    <div class="option-label">Zen</div>
+                                    <div class="option-desc">Completely calm</div>
+                                </button>
+                                <button type="button" class="stress-option" data-value="2">
+                                    <div class="option-emoji">🌿</div>
+                                    <div class="option-label">Peaceful</div>
+                                    <div class="option-desc">Mostly relaxed</div>
+                                </button>
+                                <button type="button" class="stress-option" data-value="3">
+                                    <div class="option-emoji">🌊</div>
+                                    <div class="option-label">Moderate</div>
+                                    <div class="option-desc">Some pressure</div>
+                                </button>
+                                <button type="button" class="stress-option" data-value="4">
+                                    <div class="option-emoji">🌀</div>
+                                    <div class="option-label">High</div>
+                                    <div class="option-desc">Feeling overwhelmed</div>
+                                </button>
+                                <button type="button" class="stress-option" data-value="5">
+                                    <div class="option-emoji">⚡</div>
+                                    <div class="option-label">Extreme</div>
+                                    <div class="option-desc">Can't handle it</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sleep Quality -->
+                        <div class="question-group">
+                            <h3 class="question-title">How did you sleep last night?</h3>
+                            <p class="question-subtitle">Sleep affects everything</p>
+                            <div class="sleep-options">
+                                <button type="button" class="sleep-option" data-value="1">
+                                    <div class="option-emoji">😴</div>
+                                    <div class="option-label">Terrible</div>
+                                    <div class="option-desc">Barely slept</div>
+                                </button>
+                                <button type="button" class="sleep-option" data-value="2">
+                                    <div class="option-emoji">😪</div>
+                                    <div class="option-label">Poor</div>
+                                    <div class="option-desc">Restless night</div>
+                                </button>
+                                <button type="button" class="sleep-option" data-value="3">
+                                    <div class="option-emoji">😐</div>
+                                    <div class="option-label">Okay</div>
+                                    <div class="option-desc">Some interruptions</div>
+                                </button>
+                                <button type="button" class="sleep-option" data-value="4">
+                                    <div class="option-emoji">😊</div>
+                                    <div class="option-label">Good</div>
+                                    <div class="option-desc">Mostly restful</div>
+                                </button>
+                                <button type="button" class="sleep-option" data-value="5">
+                                    <div class="option-emoji">😌</div>
+                                    <div class="option-label">Excellent</div>
+                                    <div class="option-desc">Perfect rest</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Mood -->
+                        <div class="question-group">
+                            <h3 class="question-title">What's your overall mood?</h3>
+                            <p class="question-subtitle">How are you feeling right now?</p>
+                            <div class="mood-options">
+                                <button type="button" class="mood-option" data-value="1">
+                                    <div class="option-emoji">😢</div>
+                                    <div class="option-label">Low</div>
+                                    <div class="option-desc">Feeling down</div>
+                                </button>
+                                <button type="button" class="mood-option" data-value="2">
+                                    <div class="option-emoji">😔</div>
+                                    <div class="option-label">Meh</div>
+                                    <div class="option-desc">Not great</div>
+                                </button>
+                                <button type="button" class="mood-option" data-value="3">
+                                    <div class="option-emoji">😐</div>
+                                    <div class="option-label">Neutral</div>
+                                    <div class="option-desc">Balanced</div>
+                                </button>
+                                <button type="button" class="mood-option" data-value="4">
+                                    <div class="option-emoji">😊</div>
+                                    <div class="option-label">Good</div>
+                                    <div class="option-desc">Positive vibes</div>
+                                </button>
+                                <button type="button" class="mood-option" data-value="5">
+                                    <div class="option-emoji">😄</div>
+                                    <div class="option-label">Great</div>
+                                    <div class="option-desc">Feeling amazing</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Academic Pressure -->
+                        <div class="question-group">
+                            <h3 class="question-title">How's the academic pressure?</h3>
+                            <p class="question-subtitle">Assignments, exams, deadlines...</p>
+                            <div class="academic-options">
+                                <button type="button" class="academic-option" data-value="1">
+                                    <div class="option-emoji">📚</div>
+                                    <div class="option-label">Light</div>
+                                    <div class="option-desc">Manageable workload</div>
+                                </button>
+                                <button type="button" class="academic-option" data-value="2">
+                                    <div class="option-emoji">📖</div>
+                                    <div class="option-label">Moderate</div>
+                                    <div class="option-desc">Steady pace</div>
+                                </button>
+                                <button type="button" class="academic-option" data-value="3">
+                                    <div class="option-emoji">📝</div>
+                                    <div class="option-label">Busy</div>
+                                    <div class="option-desc">Lots to do</div>
+                                </button>
+                                <button type="button" class="academic-option" data-value="4">
+                                    <div class="option-emoji">🔥</div>
+                                    <div class="option-label">Intense</div>
+                                    <div class="option-desc">High pressure</div>
+                                </button>
+                                <button type="button" class="academic-option" data-value="5">
+                                    <div class="option-emoji">💀</div>
+                                    <div class="option-label">Extreme</div>
+                                    <div class="option-desc">Completely overwhelmed</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-assessment-btn" disabled>
+                            <span>Get My Wellness Score</span>
+                            <span class="btn-icon">✨</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <div class="container">
+                <div class="results-header">
+                    <h2 class="results-title">Your Wellness Score</h2>
+                    <div class="wellness-score" id="wellnessScore">
+                        <div class="score-circle">
+                            <div class="score-number">75</div>
+                            <div class="score-label">Wellness Score</div>
+                        </div>
+                    </div>
+                    <div class="score-category" id="scoreCategory">
+                        <div class="category-icon">🌿</div>
+                        <div class="category-text">
+                            <h3 class="category-name">Moderate Wellness</h3>
+                            <p class="category-desc">You're doing okay, but there's room for improvement</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendations-grid">
+                    <div class="recommendation-card">
+                        <div class="rec-header">
+                            <div class="rec-icon">🎯</div>
+                            <h3 class="rec-title">Personalized Tasks</h3>
+                        </div>
+                        <div class="rec-content" id="personalizedTasks">
+                            <!-- Tasks will be generated based on assessment -->
+                        </div>
+                    </div>
+
+                    <div class="recommendation-card">
+                        <div class="rec-header">
+                            <div class="rec-icon">💡</div>
+                            <h3 class="rec-title">Quick Tips</h3>
+                        </div>
+                        <div class="rec-content" id="quickTips">
+                            <!-- Tips will be generated based on assessment -->
+                        </div>
+                    </div>
+
+                    <div class="recommendation-card">
+                        <div class="rec-header">
+                            <div class="rec-icon">📈</div>
+                            <h3 class="rec-title">Track Progress</h3>
+                        </div>
+                        <div class="rec-content">
+                            <div class="streak-info">
+                                <div class="streak-number" id="streakCount">3</div>
+                                <div class="streak-label">Day Streak</div>
+                            </div>
+                            <p class="streak-desc">Keep checking in to build your wellness habit!</p>
+                            <div class="badges" id="badgesContainer">
+                                <!-- Badges will be displayed here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="retake-btn" onclick="retakeAssessment()">
+                        <span>Retake Assessment</span>
+                        <span class="btn-icon">🔄</span>
+                    </button>
+                    <button class="share-btn" onclick="shareToChat()">
+                        <span>Get AI Support</span>
+                        <span class="btn-icon">💬</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Check-in History -->
+        <section class="history-section">
+            <div class="container">
+                <h2 class="section-title">📊 Your Wellness Journey</h2>
+                <div class="history-chart" id="historyChart">
+                    <!-- Chart will be generated here -->
+                </div>
+                <div class="history-summary" id="historySummary">
+                    <!-- Summary stats will be shown here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Badge Templates -->
+    <div class="badge-templates" style="display: none;">
+        <div class="badge" data-badge="first-check">
+            <div class="badge-icon">🎯</div>
+            <div class="badge-name">First Check</div>
+        </div>
+        <div class="badge" data-badge="week-streak">
+            <div class="badge-icon">🔥</div>
+            <div class="badge-name">Week Streak</div>
+        </div>
+        <div class="badge" data-badge="helper">
+            <div class="badge-icon">🤝</div>
+            <div class="badge-name">Helper</div>
+        </div>
+        <div class="badge" data-badge="consistent">
+            <div class="badge-icon">⭐</div>
+            <div class="badge-name">Consistent</div>
+        </div>
+    </div>
+
+    <script src="fitcheck.js"></script>
+</body>
+</html>

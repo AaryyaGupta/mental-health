@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+require('dotenv').config(); // Load environment variables from .env file
 
 const chatRoute = require('./routes/chat');
 const communitiesRoute = require('./routes/communities');

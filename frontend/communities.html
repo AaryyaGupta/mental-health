@@ -4,15 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Communities - Zephy Student Wellness Hub</title>
+    
+    <!-- Modern Mental Health Theme -->
+    <link rel="stylesheet" href="modern-theme.css">
+    <link rel="stylesheet" href="modern-overrides.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="hero-redesign.css">
     <link rel="stylesheet" href="communities.css">
+    <link rel="stylesheet" href="support-pages-theme.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png">
     
     <!-- Supabase -->
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    
+    <!-- Env injection (Supabase keys) -->
+    <script src="env.js"></script>
     <!-- Auth Config -->
     <script src="config.js"></script>
     <script src="auth.js"></script>
+    <script src="api.js"></script>
+    
+    <!-- Modern UI Performance Scripts -->
+    <script src="modern-ui.js" defer></script>
+    <script src="performance-optimizer.js" defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -46,65 +61,80 @@
     </header>
 
     <main class="communities-main">
-        <!-- Community Selector -->
-        <section class="community-selector">
-            <div class="container">
-                <h1 class="page-title">🏫 Anonymous Student Communities</h1>
-                <p class="page-subtitle">Connect with fellow students in safe, anonymous spaces</p>
+        <!-- Modern Hero Section -->
+        <section class="modern-section">
+            <div class="modern-container">
+                <div class="modern-section-header">
+                    <h1 class="modern-section-title">🏫 Anonymous Student Communities</h1>
+                    <p class="modern-section-subtitle">Connect with fellow students in safe, anonymous spaces designed for healing and growth</p>
+                </div>
                 
-                <div class="community-tabs">
-                    <button class="tab-btn active" data-community="all">🌍 All Posts</button>
-                    <button class="tab-btn" data-community="exam-stress">📚 Exam Stress Circle</button>
-                    <button class="tab-btn" data-community="homesick">🏠 Homesick Freshers</button>
-                    <button class="tab-btn" data-community="final-year">🎓 Final-Year Anxiety</button>
-                    <button class="tab-btn" data-community="social">🤝 Social Connections</button>
-                    <button class="tab-btn" data-community="academic">📝 Academic Support</button>
+                <div class="modern-nav community-tabs">
+                    <button class="modern-nav-link active" data-community="all">🌍 All Posts</button>
+                    <button class="modern-nav-link" data-community="exam-stress">📚 Exam Stress</button>
+                    <button class="modern-nav-link" data-community="homesick">🏠 Homesick</button>
+                    <button class="modern-nav-link" data-community="final-year">🎓 Final Year</button>
+                    <button class="modern-nav-link" data-community="social">🤝 Social</button>
+                    <button class="modern-nav-link" data-community="academic">📝 Academic</button>
                 </div>
             </div>
         </section>
 
-        <!-- Post Creation -->
-        <section class="post-creation">
-            <div class="container">
-                <div class="create-post-card">
-                    <div class="post-header">
-                        <span class="post-avatar">🦋</span>
-                        <div class="post-input-container">
-                            <textarea id="postContent" placeholder="Share something with your fellow students... (completely anonymous)" maxlength="500"></textarea>
-                            <div class="post-options">
-                                <select id="postCommunity" title="Select Community">
-                                    <option value="all">🌍 General Discussion</option>
-                                    <option value="exam-stress">📚 Exam Stress Circle</option>
-                                    <option value="homesick">🏠 Homesick Freshers</option>
-                                    <option value="final-year">🎓 Final-Year Anxiety</option>
-                                    <option value="social">🤝 Social Connections</option>
-                                    <option value="academic">📝 Academic Support</option>
-                                </select>
-                                <div class="post-actions">
-                                    <span class="char-count">0/500</span>
-                                    <button id="createPostBtn" class="post-btn" disabled>
-                                        <span>Post Anonymously</span>
-                                        <span class="btn-icon">📝</span>
-                                    </button>
-                                </div>
-                            </div>
+        <!-- Modern Post Creation -->
+        <section class="modern-section">
+            <div class="modern-container">
+                <div class="modern-card">
+                    <div class="modern-card-header">
+                        <div class="modern-card-icon">🦋</div>
+                        <div>
+                            <h3 class="modern-card-title">Share Your Thoughts</h3>
+                            <p class="modern-card-description">Your voice matters in our anonymous community</p>
                         </div>
                     </div>
+                    
+                    <form class="modern-form">
+                        <div class="modern-form-group">
+                            <label class="modern-form-label" for="postContent">What's on your mind?</label>
+                            <textarea id="postContent" class="modern-form-input modern-form-textarea" 
+                                    placeholder="Share something with your fellow students... (completely anonymous)" 
+                                    maxlength="500"></textarea>
+                        </div>
+                        
+                        <div class="modern-form-group">
+                            <label class="modern-form-label" for="postCommunity">Choose Community</label>
+                            <select id="postCommunity" class="modern-form-input" title="Select Community">
+                                <option value="all">🌍 General Discussion</option>
+                                <option value="exam-stress">📚 Exam Stress Circle</option>
+                                <option value="homesick">🏠 Homesick Freshers</option>
+                                <option value="final-year">🎓 Final-Year Anxiety</option>
+                                <option value="social">🤝 Social Connections</option>
+                                <option value="academic">📝 Academic Support</option>
+                            </select>
+                        </div>
+                        
+                        <div class="d-flex justify-between align-center">
+                            <span class="char-count">0/500</span>
+                            <button type="submit" id="createPostBtn" class="modern-btn modern-btn-primary" disabled>
+                                <span>📝</span>
+                                Post Anonymously
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
 
-        <!-- Posts Feed -->
-        <section class="posts-feed">
-            <div class="container">
-                <div id="postsContainer" class="posts-container">
+        <!-- Modern Posts Feed -->
+        <section class="modern-section">
+            <div class="modern-container">
+                <div id="postsContainer" class="modern-grid modern-grid-2">
                     <!-- Posts will be loaded here -->
                 </div>
                 
-                <div class="load-more-container">
-                    <button id="loadMoreBtn" class="load-more-btn">
-                        <span>Load More Posts</span>
-                        <span class="btn-icon">⬇️</span>
+                <div class="text-center mt-xl">
+                    <button id="loadMoreBtn" class="modern-btn modern-btn-outline">
+                        <span>⬇️</span>
+                        Load More Posts
                     </button>
                 </div>
             </div>
@@ -154,7 +184,7 @@
                 </button>
             </div>
             
-            <div class="replies-section" style="display: none;">
+            <div class="replies-section is-hidden">
                 <div class="replies-container"></div>
                 <div class="reply-form">
                     <textarea placeholder="Share your thoughts anonymously..." maxlength="300"></textarea>
@@ -189,6 +219,9 @@
         </div>
     </template>
 
+    <div id="footer-placeholder" data-component="footer"></div>
+
     <script src="communities.js"></script>
+    <script src="footer.js"></script>
 </body>
 </html>

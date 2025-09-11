@@ -1,0 +1,397 @@
+/* ===== PERFORMANCE OPTIMIZATIONS & MODERN OVERRIDES ===== */
+
+/* Z-Index Management - Critical for Modal Visibility */
+.auth-modal {
+  z-index: 99999 !important;
+}
+
+.auth-modal.active {
+  z-index: 99999 !important;
+}
+
+.auth-modal-content {
+  z-index: 100000 !important;
+  position: relative;
+}
+
+/* Ensure modal backdrop is always visible */
+.auth-modal::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99998;
+  pointer-events: none;
+}
+
+/* Modal positioning fixes */
+.auth-modal.active {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+/* Prevent body scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* Complete modal isolation from theme effects */
+.auth-modal,
+.auth-modal *,
+.auth-modal .auth-modal-content {
+  contain: none !important;
+  transform: none !important;
+  filter: none !important;
+  clip-path: none !important;
+  mask: none !important;
+  isolation: auto !important;
+}
+
+/* Force modal to be always visible */
+.auth-modal.active {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Remove inline styles and optimize performance */
+.hidden {
+  display: none !important;
+}
+
+.char-count {
+  color: var(--slate-grey);
+  font-size: 0.9rem;
+}
+
+.user-profile.hidden {
+  display: none;
+}
+
+.results-section.hidden {
+  display: none;
+}
+
+.badge-templates.hidden {
+  display: none;
+}
+
+.poll-options-container.hidden {
+  display: none;
+}
+
+/* Modern post cards for communities */
+.post-card {
+  background: var(--cloud-white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition-normal);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  margin-bottom: var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.post-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-calm);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.post-card:hover::before {
+  opacity: 1;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.post-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  background: var(--gradient-peace);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.post-meta {
+  flex: 1;
+}
+
+.post-community {
+  font-size: 0.9rem;
+  color: var(--soul-lavender);
+  font-weight: 500;
+}
+
+.post-time {
+  font-size: 0.8rem;
+  color: var(--slate-grey);
+}
+
+.post-content {
+  color: var(--charcoal);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+  font-size: 1rem;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--stone-grey);
+}
+
+.post-action {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  background: transparent;
+  color: var(--slate-grey);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: 0.9rem;
+}
+
+.post-action:hover {
+  background: var(--mist-grey);
+  color: var(--soul-lavender);
+}
+
+.post-action.active {
+  background: rgba(159, 140, 232, 0.1);
+  color: var(--soul-lavender);
+}
+
+/* Modern poll cards */
+.poll-card {
+  background: var(--cloud-white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-soft);
+  transition: all var(--transition-normal);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  margin-bottom: var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.poll-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-warmth);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.poll-card:hover::before {
+  opacity: 1;
+}
+
+.poll-question {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: var(--space-lg);
+}
+
+.poll-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+  border: 2px solid var(--stone-grey);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.poll-option:hover {
+  border-color: var(--soul-lavender);
+  background: rgba(159, 140, 232, 0.05);
+}
+
+.poll-option.selected {
+  border-color: var(--soul-lavender);
+  background: rgba(159, 140, 232, 0.1);
+}
+
+.poll-option-text {
+  flex: 1;
+  font-weight: 500;
+}
+
+.poll-option-percentage {
+  font-size: 0.9rem;
+  color: var(--slate-grey);
+  font-weight: 600;
+}
+
+.poll-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--gradient-peace);
+  transition: width var(--transition-slow);
+}
+
+/* Modern wellness check cards */
+.wellness-check-card {
+  background: linear-gradient(135deg, var(--cloud-white) 0%, rgba(159, 140, 232, 0.02) 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-medium);
+  border: 1px solid rgba(159, 140, 232, 0.1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.wellness-check-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-peace);
+}
+
+.wellness-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius-full);
+  background: var(--gradient-peace);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto var(--space-lg);
+  animation: float 3s ease-in-out infinite;
+}
+
+.wellness-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.wellness-description {
+  color: var(--slate-grey);
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .post-card,
+  .poll-card,
+  .wellness-check-card {
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+  
+  .post-actions {
+    gap: var(--space-md);
+  }
+  
+  .wellness-check-card {
+    padding: var(--space-xl);
+  }
+  
+  .wellness-icon {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+}
+
+/* Performance critical animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cloud-white: #1a1a1a;
+    --mist-grey: #2d2d2d;
+    --stone-grey: #404040;
+    --slate-grey: #a0a0a0;
+    --charcoal: #ffffff;
+    --midnight: #ffffff;
+  }
+  
+  .modern-card,
+  .post-card,
+  .poll-card,
+  .wellness-check-card {
+    background: var(--cloud-white);
+    border-color: var(--stone-grey);
+  }
+}
+
+/* Print optimizations */
+@media print {
+  .modern-card,
+  .post-card,
+  .poll-card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+    break-inside: avoid;
+  }
+  
+  .post-actions,
+  .modern-btn {
+    display: none;
+  }
+}

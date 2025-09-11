@@ -8,6 +8,7 @@ const currentMoodSpan = document.getElementById('currentMood');
 const currentStressSpan = document.getElementById('currentStress');
 
 let userTraits = { mood: null, stress: null };
+let activeSessionId = null;
 let selectedMood = null;
 let selectedStress = null;
 
@@ -158,7 +159,7 @@ function showWelcomeMessage() {
     
     const randomWelcome = welcomeMessages[Math.floor(Math.random() * welcomeMessages.length)];
     
-    setTimeout(() => {
+    setTimeout(async () => {
         chatBox.innerHTML += `<div class="message system-message">
             <div class="message-content">
                 <div style="text-align: center; margin-bottom: 1rem;">
@@ -177,6 +178,32 @@ function showWelcomeMessage() {
         setTimeout(() => {
             showMicroSurprise();
         }, 3000);
+
+        // Attempt to load existing session history if user authenticated
+        try {
+            if (window.supabaseClient) {
+                const { data: { session } } = await window.supabaseClient.auth.getSession();
+                if (session && session.access_token) {
+                    const res = await fetch('/api/chat/history', {
+                        headers: { 'Authorization': 'Bearer ' + session.access_token }
+                    });
+                    if (res.ok) {
+                        const hist = await res.json();
+                        activeSessionId = hist.session_id;
+                        (hist.messages || []).forEach(m => {
+                            if (m.role === 'user') {
+                                appendUserMessage(m.content, true);
+                            } else if (m.role === 'assistant') {
+                                appendAIMessage(m.content, true);
+                            }
+                        });
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    }
+                }
+            }
+        } catch (err) {
+            console.warn('History load skipped:', err.message);
+        }
     }, 800);
 }
 
@@ -342,10 +369,15 @@ async function sendMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
+        let headers = { 'Content-Type': 'application/json' };
+        if (window.supabaseClient) {
+            const { data: { session } } = await window.supabaseClient.auth.getSession();
+            if (session && session.access_token) headers['Authorization'] = 'Bearer ' + session.access_token;
+        }
         const response = await fetch('/api/chat', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message, traits: userTraits }),
+            headers,
+            body: JSON.stringify({ message, traits: userTraits, session_id: activeSessionId })
         });
 
         if (!response.ok) {
@@ -353,58 +385,14 @@ async function sendMessage() {
             throw new Error(errorData.error || `Server error: ${response.status}`);
         }
 
-        const data = await response.json();
+    const data = await response.json();
+    if (data.session_id) activeSessionId = data.session_id;
         
         if (!data.reply) {
             throw new Error('No response received from AI');
         }
 
-        // Add AI message with zen typing animation
-        const aiMessageDiv = document.createElement('div');
-        aiMessageDiv.className = 'message ai-message';
-        aiMessageDiv.innerHTML = `<div class="message-content typing">
-            <span style="font-size: 1.2rem; margin-right: 0.5rem;">🤍</span>
-            I'm listening and preparing a gentle response...
-        </div>`;
-        aiMessageDiv.style.opacity = '0';
-        aiMessageDiv.style.transform = 'translateY(20px)';
-        
-        chatBox.appendChild(aiMessageDiv);
-        
-        // Animate typing message in
-        setTimeout(() => {
-            aiMessageDiv.style.transition = 'all 0.4s ease-out';
-            aiMessageDiv.style.opacity = '1';
-            aiMessageDiv.style.transform = 'translateY(0)';
-        }, 50);
-        
-        chatBox.scrollTop = chatBox.scrollHeight;
-
-        // Simulate thoughtful typing delay
-        setTimeout(() => {
-            aiMessageDiv.innerHTML = `<div class="message-content">
-                ${data.reply}
-                <div class="message-reactions">
-                    <button class="reaction-btn" onclick="reactToMessage(this, 'helpful')">
-                        <span style="margin-right: 4px;">🌿</span> Helpful
-                    </button>
-                    <button class="reaction-btn" onclick="reactToMessage(this, 'comforting')">
-                        <span style="margin-right: 4px;">☕</span> Comforting
-                    </button>
-                    <button class="reaction-btn" onclick="reactToMessage(this, 'love')">
-                        <span style="margin-right: 4px;">✨</span> Love this
-                    </button>
-                </div>
-            </div>`;
-            chatBox.scrollTop = chatBox.scrollHeight;
-            
-            // Randomly show a poll after some AI responses
-            if (Math.random() < 0.3) {
-                setTimeout(() => {
-                    showHelpfulnessPoll();
-                }, 2000);
-            }
-        }, 1500);
+    appendAITypingAndReply(data.reply);
         
     } catch (error) {
         console.error('Chat error:', error);
@@ -581,4 +569,77 @@ function showMoodPicker() {
             form.style.transform = 'translateY(0)';
         }, 50);
     }, 300);
+}
+
+function appendUserMessage(text, skipAnim=false) {
+    const userMessageDiv = document.createElement('div');
+    userMessageDiv.className = 'message user-message';
+    userMessageDiv.innerHTML = `<div class="message-content">${text}</div>`;
+    if (!skipAnim) {
+        userMessageDiv.style.opacity = '0';
+        userMessageDiv.style.transform = 'translateY(20px)';
+        chatBox.appendChild(userMessageDiv);
+        setTimeout(() => {
+            userMessageDiv.style.transition = 'all 0.4s ease-out';
+            userMessageDiv.style.opacity = '1';
+            userMessageDiv.style.transform = 'translateY(0)';
+        }, 50);
+    } else {
+        chatBox.appendChild(userMessageDiv);
+    }
+}
+
+function appendAIMessage(text, skipAnim=false) {
+    const aiMessageDiv = document.createElement('div');
+    aiMessageDiv.className = 'message ai-message';
+    aiMessageDiv.innerHTML = `<div class="message-content">${text}</div>`;
+    if (!skipAnim) {
+        aiMessageDiv.style.opacity = '0';
+        aiMessageDiv.style.transform = 'translateY(20px)';
+        chatBox.appendChild(aiMessageDiv);
+        setTimeout(() => {
+            aiMessageDiv.style.transition = 'all 0.4s ease-out';
+            aiMessageDiv.style.opacity = '1';
+            aiMessageDiv.style.transform = 'translateY(0)';
+        }, 50);
+    } else {
+        chatBox.appendChild(aiMessageDiv);
+    }
+}
+
+function appendAITypingAndReply(replyText) {
+    const aiMessageDiv = document.createElement('div');
+    aiMessageDiv.className = 'message ai-message';
+    aiMessageDiv.innerHTML = `<div class="message-content typing">
+        <span style="font-size: 1.2rem; margin-right: 0.5rem;">🤍</span>
+        I'm listening and preparing a gentle response...
+    </div>`;
+    aiMessageDiv.style.opacity = '0';
+    aiMessageDiv.style.transform = 'translateY(20px)';
+    chatBox.appendChild(aiMessageDiv);
+    setTimeout(() => {
+        aiMessageDiv.style.transition = 'all 0.4s ease-out';
+        aiMessageDiv.style.opacity = '1';
+        aiMessageDiv.style.transform = 'translateY(0)';
+    }, 50);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    setTimeout(() => {
+        aiMessageDiv.innerHTML = `<div class="message-content">${replyText}
+            <div class="message-reactions">
+                <button class="reaction-btn" onclick="reactToMessage(this, 'helpful')">
+                    <span style="margin-right: 4px;">🌿</span> Helpful
+                </button>
+                <button class="reaction-btn" onclick="reactToMessage(this, 'comforting')">
+                    <span style="margin-right: 4px;">☕</span> Comforting
+                </button>
+                <button class="reaction-btn" onclick="reactToMessage(this, 'love')">
+                    <span style="margin-right: 4px;">✨</span> Love this
+                </button>
+            </div>
+        </div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+        if (Math.random() < 0.3) {
+            setTimeout(() => { showHelpfulnessPoll(); }, 2000);
+        }
+    }, 1500);
 }

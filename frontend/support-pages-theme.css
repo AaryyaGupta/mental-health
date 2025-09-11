@@ -1,0 +1,259 @@
+/* Unified Support Pages Theme Overrides
+   Applies modern light theme + gradient + card polish to Communities, Polls, Fit Check, Chat
+   without rewriting existing page-specific CSS. Keeps calm, airy aesthetic consistent with index hero + sections.
+*/
+
+/* Shared page shell backgrounds */
+.communities-main,
+.polls-main,
+.fitcheck-main,
+.zen-chat-container {
+  background: linear-gradient(180deg,#ffffff 0%,#f9fcff 65%,#f4f9ff 100%);
+  position: relative;
+}
+
+/* Subtle radial highlight accents (non-intrusive) */
+.communities-main:before,
+.polls-main:before,
+.fitcheck-main:before,
+.zen-chat-container:before {
+  content: "";
+  position: absolute;
+  top: -60px; left: -40px;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle at center, rgba(159,140,232,0.18), rgba(159,140,232,0) 70%);
+  pointer-events: none;
+  filter: blur(4px);
+  opacity: .85;
+}
+.communities-main:after,
+.polls-main:after,
+.fitcheck-main:after,
+.zen-chat-container:after {
+  content: "";
+  position: absolute;
+  bottom: -80px; right: -50px;
+  width: 340px; height: 340px;
+  background: radial-gradient(circle at center, rgba(168,230,207,0.22), rgba(168,230,207,0) 70%);
+  pointer-events: none;
+  filter: blur(6px);
+  opacity: .9;
+}
+
+/* ===== Support Policy Pages Layout ===== */
+.policy-page-root { padding-top: 6rem; }
+.policy-section-top { padding-top: 2rem; }
+.policy-container { max-width: 880px; }
+.policy-article { background: rgba(255,255,255,0.92); border:1px solid rgba(0,0,0,0.05); border-radius:1.25rem; padding:2rem 2rem 2.4rem; box-shadow:0 10px 28px -12px rgba(74,144,226,0.18); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); }
+.policy-article h2 { margin-top:2rem; font-size:1.15rem; letter-spacing:.3px; color:#2d3945; }
+.policy-article h2:first-of-type { margin-top:.5rem; }
+.policy-article p, .policy-article ul { font-size:.9rem; line-height:1.55; color:#49535b; font-weight:500; margin: .6rem 0 0; }
+.policy-article ul { padding-left:1.1rem; }
+.policy-article li { margin:.3rem 0; }
+
+/* Help Center specific grids */
+.help-center-grid { margin-top:2rem; }
+.help-center-grid .modern-card ul { list-style:disc; }
+.help-center-grid .modern-card ul { padding-left:1.1rem; }
+.help-center-grid .modern-card ul li { margin:.35rem 0; font-size:.78rem; }
+.help-center-grid .modern-card:last-child .modern-card-description { max-width: 240px; }
+
+
+/* Elevate existing cards / containers to match modern card system */
+.post-card,
+.poll-card,
+.create-poll-card,
+.assessment-card,
+.recommendation-card,
+.history-chart,
+.history-summary,
+.reply-card,
+.create-post-card,
+.results-section .recommendation-card,
+.result-card {
+  border: 1px solid rgba(0,0,0,0.05) !important;
+  background: rgba(255,255,255,0.9) !important;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 28px -12px rgba(159,140,232,0.25), 0 4px 18px -8px rgba(74,144,226,0.15) !important;
+  transition: transform .35s ease, box-shadow .45s ease;
+}
+
+.post-card:hover,
+.poll-card:hover,
+.create-poll-card:hover,
+.assessment-card:hover,
+.recommendation-card:hover,
+.history-chart:hover,
+.history-summary:hover,
+.reply-card:hover,
+.result-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 42px -12px rgba(159,140,232,0.4), 0 6px 24px -10px rgba(74,144,226,0.25) !important;
+}
+
+/* Gradient accent bars */
+.create-poll-card:before,
+.assessment-card:before,
+.create-post-card:before,
+.poll-card:before,
+.post-card:before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg,var(--soul-lavender),var(--heart-coral),var(--calm-mint));
+  opacity: .85;
+}
+
+/* Page titles unified gradient */
+.page-title, .results-title, .section-title, .modern-section-title {
+  background: linear-gradient(90deg,#357abd,#4a90e2,#9b8ce8 70%,#ff9a9e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent !important;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+/* Subtitles & descriptive text softer slate */
+.page-subtitle,
+.poll-question,
+.question-subtitle,
+.category-desc,
+.modern-section-subtitle {
+  color: #59626c !important;
+}
+
+/* Replace strong blue buttons with palette variables */
+.post-btn,
+.create-poll-btn,
+.submit-assessment-btn,
+.retake-btn,
+.share-btn,
+.load-more-btn,
+.poll-btn.voted,
+.stress-option.selected,
+.sleep-option.selected,
+.mood-option.selected,
+.academic-option.selected,
+.scale-option.voted {
+  background: var(--gradient-peace) !important;
+  border: none !important;
+  color: #fff !important;
+  box-shadow: 0 8px 24px -6px rgba(159,140,232,0.5) !important;
+}
+
+.post-btn:hover:not(:disabled),
+.create-poll-btn:hover:not(:disabled),
+.submit-assessment-btn:hover:not(:disabled),
+.retake-btn:hover,
+.share-btn:hover,
+.load-more-btn:hover,
+.poll-btn.voted:hover,
+.stress-option.selected:hover,
+.sleep-option.selected:hover,
+.mood-option.selected:hover,
+.academic-option.selected:hover,
+.scale-option.voted:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 34px -8px rgba(159,140,232,0.55) !important;
+}
+
+/* Outline / neutral buttons */
+.poll-btn,
+.emoji-option,
+.multiple-option,
+.scale-option,
+.stress-option,
+.sleep-option,
+.mood-option,
+.academic-option {
+  background: rgba(255,255,255,0.7);
+  border: 2px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 14px -6px rgba(74,144,226,0.18);
+}
+
+.poll-btn:hover,
+.emoji-option:hover,
+.multiple-option:hover,
+.scale-option:hover,
+.stress-option:hover,
+.sleep-option:hover,
+.mood-option:hover,
+.academic-option:hover {
+  border-color: var(--soul-lavender);
+  background: rgba(255,255,255,0.85);
+}
+
+/* Tag / chips recolor */
+.post-community-tag,
+.poll-category {
+  background: rgba(159,140,232,0.15) !important;
+  color: var(--soul-lavender) !important;
+  border: 1px solid rgba(159,140,232,0.3);
+}
+
+/* Char count and subtle meta */
+.char-count,
+.poll-votes,
+.post-time,
+.reply-time,
+.reply-char-count {
+  color: #6b7680 !important;
+}
+
+/* Score circle re-theme */
+.score-circle {
+  background: linear-gradient(140deg,var(--soul-lavender),var(--soft-purple)) !important;
+  box-shadow: 0 12px 36px -10px rgba(159,140,232,0.55) !important;
+}
+
+.stat-number,
+.streak-number {
+  color: var(--soul-lavender) !important;
+}
+
+/* Poll option fill bars */
+.option-fill { background: linear-gradient(90deg,var(--soul-lavender),var(--heart-coral)) !important; }
+
+/* Progress / radial feel for history placeholders */
+.history-chart, .history-summary { position: relative; }
+.history-chart:after {
+  content:""; position:absolute; inset:0; background:radial-gradient(circle at 75% 25%, rgba(159,140,232,0.18), transparent 70%);
+  pointer-events:none; mix-blend-mode:overlay;
+}
+
+/* Chat page alignment */
+.zen-chat-container {
+  padding: 6rem 0 4rem; /* ensure below sticky header */
+  min-height: 100vh;
+}
+.zen-chat-section .zen-journal {
+  background: rgba(255,255,255,0.92);
+  border:1px solid rgba(0,0,0,0.05);
+  border-radius: 1.5rem;
+  padding: 1.75rem 1.5rem 2rem;
+  max-width: 880px;
+  margin: 0 auto;
+  box-shadow: 0 10px 28px -12px rgba(159,140,232,0.28);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  position: relative;
+}
+.zen-chat-section .message.system-message .message-content { background: linear-gradient(135deg,#ffffff 0%, #f4f9ff 100%) !important; }
+
+/* Reaction buttons unify */
+.reaction-btn.selected { background: var(--gradient-peace) !important; color:#fff !important; }
+
+/* Accessibility: ensure focus rings visible */
+button:focus-visible, .poll-btn:focus-visible, .post-btn:focus-visible, .create-poll-btn:focus-visible {
+  outline: 3px solid var(--soft-purple);
+  outline-offset: 2px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 720px) {
+  .communities-main, .polls-main, .fitcheck-main, .zen-chat-container { padding-top: 5rem; }
+  .zen-chat-section .zen-journal { border-radius: 1.1rem; padding: 1.25rem 1rem 1.6rem; }
+  .page-title { font-size: 2.05rem !important; }
+}

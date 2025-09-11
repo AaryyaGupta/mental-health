@@ -1,7 +1,7 @@
 // Polls JavaScript
 class PollsApp {
     constructor() {
-        this.polls = [];
+    this.polls = [];
         this.userProfile = this.loadUserProfile();
         this.init();
     }
@@ -10,9 +10,7 @@ class PollsApp {
         this.setupMobileMenu();
         this.loadUserInfo();
         this.setupEventListeners();
-        this.loadPolls();
-        this.renderActivePolls();
-        this.renderRecentResults();
+    this.loadPolls();
     }
 
     setupMobileMenu() {
@@ -243,64 +241,59 @@ class PollsApp {
         btn.disabled = !question || !type || !category;
     }
 
-    createPoll() {
+    async createPoll() {
         const question = document.getElementById('pollQuestion').value.trim();
         const type = document.getElementById('pollType').value;
         const category = document.getElementById('pollCategory').value;
 
-        const poll = {
-            id: Date.now() + Math.random(),
-            question: question,
-            type: type,
-            category: category,
-            author: {
-                nickname: this.userProfile.nickname,
-                avatar: this.userProfile.avatar
-            },
-            timestamp: new Date(),
-            votes: {},
-            totalVotes: 0,
-            status: 'active'
-        };
+    const payload = { question, type, category };
 
         // Add type-specific data
+        let options = null;
+        let scale = null;
         switch (type) {
             case 'emoji':
-                poll.options = this.getEmojiOptions();
+                options = this.getEmojiOptions();
                 break;
             case 'multiple':
-                poll.options = this.getMultipleChoiceOptions();
+                options = this.getMultipleChoiceOptions();
                 break;
             case 'scale':
-                poll.scale = this.getScaleOptions();
+                scale = this.getScaleOptions();
                 break;
             case 'yesno':
-                poll.options = [
+                options = [
                     { id: 'yes', text: 'Yes', emoji: '✅' },
                     { id: 'no', text: 'No', emoji: '❌' }
                 ];
                 break;
         }
 
-        // Initialize vote counts
-        if (poll.options) {
-            poll.options.forEach(option => {
-                poll.votes[option.id] = 0;
+        try {
+            const created = await window.apiClient.request('/api/communities/polls', {
+                method: 'POST',
+                body: { question, type, category, options, scale }
             });
-        } else if (poll.scale) {
-            for (let i = 1; i <= poll.scale.range; i++) {
-                poll.votes[i] = 0;
-            }
+            const poll = {
+                id: created.id,
+                question: created.question,
+                type: created.type,
+                category: created.category,
+                author: created.author,
+                timestamp: new Date(created.timestamp),
+                options: created.options || options,
+                scale: created.scale || scale,
+                votes: created.votes || {},
+                totalVotes: created.totalVotes || 0,
+                status: created.status
+            };
+            this.polls.unshift(poll);
+            this.renderActivePolls();
+            this.resetCreatePollForm();
+            this.showNotification('Poll created successfully! 🗳️');
+        } catch (err) {
+            this.showNotification('Failed to create poll: ' + err.message);
         }
-
-        this.polls.unshift(poll);
-        this.savePolls();
-        this.renderActivePolls();
-
-        // Clear form
-        this.resetCreatePollForm();
-
-        this.showNotification('Poll created successfully! 🗳️');
     }
 
     getEmojiOptions() {
@@ -362,69 +355,30 @@ class PollsApp {
         document.querySelector('.create-poll-btn').disabled = true;
     }
 
-    loadPolls() {
-        const stored = localStorage.getItem('zephyPolls');
-        if (stored) {
-            this.polls = JSON.parse(stored);
-            // Convert timestamp strings back to Date objects
-            this.polls.forEach(poll => {
-                poll.timestamp = new Date(poll.timestamp);
-            });
-        } else {
-            this.createSamplePolls();
+    async loadPolls() {
+        try {
+            const data = await window.apiClient.request('/api/communities/polls', { method: 'GET', auth: false });
+            this.polls = data.map(p => ({
+                id: p.id,
+                question: p.question,
+                type: p.type,
+                category: p.category,
+                author: p.author,
+                timestamp: new Date(p.timestamp),
+                options: p.options,
+                votes: p.votes || {},
+                totalVotes: p.totalVotes || 0,
+                status: p.status,
+                scale: p.scale
+            }));
+            this.renderActivePolls();
+            this.renderRecentResults();
+        } catch (err) {
+            this.showNotification('Failed to load polls: ' + err.message);
         }
     }
 
-    createSamplePolls() {
-        const samplePolls = [
-            {
-                id: 1,
-                question: "How ready are you for midterm exams?",
-                type: "emoji",
-                category: "academic",
-                author: { nickname: "StudyBuddy", avatar: "📚" },
-                timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-                options: [
-                    { id: 'ready', text: 'Ready', emoji: '✅' },
-                    { id: 'somewhat', text: 'Somewhat', emoji: '😅' },
-                    { id: 'not-ready', text: 'Not ready', emoji: '😭' }
-                ],
-                votes: { ready: 12, somewhat: 25, 'not-ready': 18 },
-                totalVotes: 55,
-                status: 'active'
-            },
-            {
-                id: 2,
-                question: "How satisfied are you with campus mental health resources?",
-                type: "scale",
-                category: "wellness",
-                author: { nickname: "WellnessAdvocate", avatar: "🌱" },
-                timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
-                scale: { start: "Very Unsatisfied", end: "Very Satisfied", range: 5 },
-                votes: { 1: 5, 2: 8, 3: 15, 4: 12, 5: 7 },
-                totalVotes: 47,
-                status: 'active'
-            },
-            {
-                id: 3,
-                question: "Should the library extend its hours during finals week?",
-                type: "yesno",
-                category: "campus",
-                author: { nickname: "NightOwl", avatar: "🦉" },
-                timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000),
-                options: [
-                    { id: 'yes', text: 'Yes', emoji: '✅' },
-                    { id: 'no', text: 'No', emoji: '❌' }
-                ],
-                votes: { yes: 89, no: 11 },
-                totalVotes: 100,
-                status: 'active'
-            }
-        ];
-
-        this.polls = samplePolls;
-        this.savePolls();
-    }
+    createSamplePolls() { /* removed */ }
 
     renderActivePolls() {
         const container = document.getElementById('activePollsContainer');
@@ -534,45 +488,29 @@ class PollsApp {
         });
     }
 
-    handleVote(pollId, optionId, cardElement) {
+    async handleVote(pollId, optionId, cardElement) {
         const poll = this.polls.find(p => p.id === pollId);
         if (!poll) return;
-
-        // Check if user has already voted (simple check using localStorage)
-        const voteKey = `poll_vote_${pollId}`;
-        const hasVoted = localStorage.getItem(voteKey);
-
-        if (hasVoted) {
-            this.showNotification('You have already voted on this poll! 🗳️');
-            return;
+        try {
+            const res = await window.apiClient.request(`/api/communities/polls/${pollId}/vote`, {
+                method: 'POST',
+                body: { optionId }
+            });
+            poll.votes = res.votes;
+            poll.totalVotes = res.totalVotes;
+            // Re-render options
+            const content = cardElement.querySelector('.poll-content');
+            content.innerHTML = `
+                <h3 class="poll-question">${poll.question}</h3>
+                <div class="poll-options">
+                    ${this.renderPollOptions(poll)}
+                </div>`;
+            cardElement.querySelector('.poll-votes').textContent = `${poll.totalVotes} votes`;
+            cardElement.classList.add('voted');
+            this.showNotification('Vote recorded! 🗳️');
+        } catch (err) {
+            this.showNotification('Vote failed: ' + err.message);
         }
-
-        // Record the vote
-        poll.votes[optionId]++;
-        poll.totalVotes++;
-
-        // Mark as voted
-        localStorage.setItem(voteKey, optionId);
-
-        // Save polls
-        this.savePolls();
-
-        // Update the display
-        const pollContent = cardElement.querySelector('.poll-content');
-        pollContent.innerHTML = `
-            <h3 class="poll-question">${poll.question}</h3>
-            <div class="poll-options">
-                ${this.renderPollOptions(poll)}
-            </div>
-        `;
-
-        // Update vote count
-        cardElement.querySelector('.poll-votes').textContent = `${poll.totalVotes} votes`;
-
-        // Show voted state
-        cardElement.classList.add('voted');
-
-        this.showNotification('Vote recorded! 🗳️');
     }
 
     renderRecentResults() {
@@ -665,9 +603,7 @@ class PollsApp {
         return `${days}d ago`;
     }
 
-    savePolls() {
-        localStorage.setItem('zephyPolls', JSON.stringify(this.polls));
-    }
+    savePolls() { /* server side now */ }
 
     showNotification(message) {
         const notification = document.createElement('div');

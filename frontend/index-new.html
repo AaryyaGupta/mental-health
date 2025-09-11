@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zephy - Your Mental Health Matters</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="modern-theme.css">
+    <link rel="stylesheet" href="modern-overrides.css">
+    <link rel="stylesheet" href="spacing-fix.css">
+    <link rel="stylesheet" href="hero-redesign.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="zen-header">
+        <nav class="zen-nav">
+            <div class="zen-container">
+                <div class="nav-brand">
+                    <img src="assets/zephy-logo.webp" alt="Zephy" class="brand-logo">
+                    <span class="brand-name">Zephy</span>
+                </div>
+                
+                <div class="nav-menu" id="navMenu">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#about" class="nav-link">About Us</a>
+                    <a href="#features" class="nav-link">Work With Us</a>
+                    <a href="#contact" class="nav-link">Events</a>
+                    <a href="#contact" class="nav-link">Contact Us</a>
+                </div>
+                
+                <div class="nav-actions">
+                    <button class="zen-button outline" onclick="authService.showLoginModal()">
+                        Get Started →
+                    </button>
+                    <button class="nav-toggle" id="navToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Auth Modals -->
+        <div id="authModal" class="auth-modal">
+            <div class="auth-modal-content">
+                <button class="auth-close" onclick="authService.hideAuthModal()">&times;</button>
+                
+                <!-- Login Form -->
+                <div id="loginForm" class="auth-form active">
+                    <div class="auth-header">
+                        <h2>Welcome Back</h2>
+                        <p>Sign in to your anonymous account</p>
+                    </div>
+                    
+                    <form id="loginFormElement">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        
+                        <button type="submit" class="zen-button primary full-width">
+                            Sign In
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#" onclick="authService.switchToRegister()">Sign up</a></p>
+                    </div>
+                </div>
+                
+                <!-- Register Form -->
+                <div id="registerForm" class="auth-form">
+                    <div class="auth-header">
+                        <h2>Join Our Community</h2>
+                        <p>Create your anonymous safe space</p>
+                    </div>
+                    
+                    <form id="registerFormElement">
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" required>
+                        </div>
+                        
+                        <button type="submit" class="zen-button primary full-width">
+                            Create Account
+                        </button>
+                    </form>
+                    
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="#" onclick="authService.switchToLogin()">Sign in</a></p>
+                    </div>
+                </div>
+                
+                <!-- Success Message -->
+                <div id="successMessage" class="auth-form success-message">
+                    <div class="success-icon">✓</div>
+                    <div class="success-content">
+                        <h3>Welcome to Zephy!</h3>
+                        <p>Your account has been created successfully.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section - New Design -->
+    <section id="home" class="modern-hero">
+        <div class="hero-container">
+            <!-- Left Content -->
+            <div class="hero-left">
+                <div class="hero-badge">
+                    <span class="badge-icon">🌱</span>
+                    <span class="badge-text">Safe • Connect</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    Your Mental<br>
+                    <span class="title-highlight">Health Matters</span>
+                    <span class="title-decoration">✦</span>
+                </h1>
+                
+                <div class="hero-message">
+                    <p class="message-text">
+                        You <strong>don't</strong> have<br>
+                        to <strong>struggle</strong> in<br>
+                        silence!
+                    </p>
+                    <button class="learn-more-btn">LEARN MORE</button>
+                </div>
+                
+                <div class="audio-player">
+                    <button class="play-button">▶</button>
+                    <div class="audio-visualizer">
+                        <div class="bar bar1"></div>
+                        <div class="bar bar2"></div>
+                        <div class="bar bar3"></div>
+                        <div class="bar bar4"></div>
+                        <div class="bar bar5"></div>
+                        <div class="bar bar6"></div>
+                        <div class="bar bar7"></div>
+                        <div class="bar bar8"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Center Illustration -->
+            <div class="hero-center">
+                <div class="brain-container">
+                    <div class="brain-silhouette">
+                        <!-- Meditation Person -->
+                        <div class="meditation-person">
+                            <div class="person-body"></div>
+                            <div class="meditation-aura"></div>
+                        </div>
+                        
+                        <!-- Cosmic Elements -->
+                        <div class="cosmic-element planet-orange"></div>
+                        <div class="cosmic-element planet-blue"></div>
+                        <div class="cosmic-element planet-purple"></div>
+                        <div class="cosmic-element planet-coral"></div>
+                        
+                        <!-- Stars -->
+                        <div class="star star1">✦</div>
+                        <div class="star star2">✦</div>
+                        <div class="star star3">★</div>
+                        <div class="star star4">✧</div>
+                        
+                        <!-- Logo Badge -->
+                        <div class="logo-badge">
+                            <span class="logo-text">GET YOURSELF TOGETHER</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Elements -->
+                    <div class="floating-moon">🌙</div>
+                    <div class="floating-sparkle">✨</div>
+                </div>
+            </div>
+            
+            <!-- Right Sidebar -->
+            <div class="hero-right">
+                <div class="hope-card">
+                    <div class="hope-icon">🧠💭</div>
+                    <p class="hope-text">
+                        There's <strong>hope</strong> when<br>
+                        your <strong>brain</strong> tells<br>
+                        you there isn't
+                    </p>
+                </div>
+                
+                <div class="definition-card">
+                    <h3 class="definition-title">Grief</h3>
+                    <p class="definition-pronunciation">/ɡrif/</p>
+                    <p class="definition-text">
+                        Each day we learn of the<br>
+                        griefs and tribulations<br>
+                        which affect our<br>
+                        constituents or ourselves.
+                    </p>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="hero-actions">
+                    <button class="zen-button primary" onclick="authService.showLoginModal()">
+                        Join Community
+                    </button>
+                    <button class="zen-button secondary" onclick="document.getElementById('features').scrollIntoView()">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Overview -->
+    <section class="features-overview" id="features">
+        <div class="zen-container">
+            <div class="features-header">
+                <div class="features-badge">
+                    <span class="badge-icon">✨</span>
+                    <span class="badge-text">Features</span>
+                </div>
+                <h2 class="features-title">Everything You Need for Student Wellness</h2>
+                <p class="features-subtitle">
+                    Discover powerful tools designed specifically for student mental health and anonymous peer support
+                </p>
+            </div>
+            
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3 class="feature-title">Anonymous Chat</h3>
+                    <p class="feature-description">
+                        Connect with peers without revealing your identity. Share your thoughts and experiences in a completely safe space.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Real-time messaging</li>
+                        <li>No personal data required</li>
+                        <li>Moderated conversations</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card featured">
+                    <div class="feature-badge">Most Popular</div>
+                    <div class="feature-icon">🤝</div>
+                    <h3 class="feature-title">Peer Support Groups</h3>
+                    <p class="feature-description">
+                        Join topic-based support groups with students facing similar challenges. Find your community and grow together.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Topic-based groups</li>
+                        <li>Peer-to-peer support</li>
+                        <li>Expert moderation</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3 class="feature-title">Wellness Resources</h3>
+                    <p class="feature-description">
+                        Access curated mental health resources, coping strategies, and self-help tools designed for students.
+                    </p>
+                    <ul class="feature-benefits">
+                        <li>Expert-curated content</li>
+                        <li>Interactive exercises</li>
+                        <li>Progress tracking</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="zen-container">
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="section-badge">
+                        <span class="badge-icon">🌱</span>
+                        <span class="badge-text">About Zephy</span>
+                    </div>
+                    <h2 class="section-title">
+                        Building a Safer Mental Health Space for Students
+                    </h2>
+                    <p class="section-description">
+                        Zephy was created by students, for students. We understand the unique pressures and challenges 
+                        of academic life, and we're here to provide a safe, anonymous platform where you can connect 
+                        with peers who truly understand your journey.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-group">
+                            <div class="stat-number">1000+</div>
+                            <div class="stat-label">Anonymous Students</div>
+                        </div>
+                        <div class="stat-group">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-label">Daily Conversations</div>
+                        </div>
+                        <div class="stat-group">
+                            <div class="stat-number">95%</div>
+                            <div class="stat-label">Feel Supported</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <img src="attached_assets/generated_images/ZEPHY_meditation_logo_icon_200d98a7.png" alt="Mental Wellness" class="about-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="zen-container">
+            <div class="contact-header">
+                <div class="section-badge">
+                    <span class="badge-icon">📞</span>
+                    <span class="badge-text">Get in Touch</span>
+                </div>
+                <h2 class="section-title">Ready to Start Your Journey?</h2>
+                <p class="section-description">
+                    Join our community today and take the first step towards better mental health.
+                </p>
+            </div>
+            
+            <div class="contact-actions">
+                <button class="zen-button primary large" onclick="authService.showLoginModal()">
+                    Join Our Community
+                </button>
+                <div class="contact-info">
+                    <p class="info-text">
+                        🔒 <strong>100% Anonymous</strong> • No personal information required
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="zen-footer">
+        <div class="zen-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/zephy-logo.webp" alt="Zephy" class="footer-logo">
+                    <span class="footer-brand-name">Zephy</span>
+                    <p class="footer-tagline">Your safe space for mental wellness</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4>Platform</h4>
+                        <a href="#features">Features</a>
+                        <a href="#about">About</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                    <div class="link-group">
+                        <h4>Support</h4>
+                        <a href="#">Help Center</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Zephy. All rights reserved. Made with ❤️ for student mental health.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="performance-optimizer.js"></script>
+</body>
+</html>

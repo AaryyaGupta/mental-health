@@ -1,0 +1,20 @@
+/* Gentle spacing tweaks (formerly extreme spacing-fix) */
+
+/* Provide a comfortable top/bottom rhythm for hero without compression */
+.zen-hero { 
+  padding: 4rem 0 3rem 0; /* restored air */
+}
+
+/* Ensure features section has standard separation */
+.features-overview { 
+  margin-top: 0; 
+  padding-top: 2rem; 
+}
+
+/* Slightly tighten huge headings on very small screens only */
+@media (max-width: 480px) {
+  .hero-title { font-size: clamp(2.2rem, 9vw, 3rem); }
+}
+
+/* Leave previous transitional & hiding rules removed to keep site structure visible */
+

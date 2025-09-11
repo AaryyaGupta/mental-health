@@ -1,15 +1,71 @@
 const express = require("express");
 const router = express.Router();
 const client = require("../utils/ai");
+const supabase = require('../utils/supabase');
+const { requireAuth, optionalAuth } = require('../middleware/auth');
+const { rateLimitChat } = require('../middleware/rateLimit');
+const { sanitizeText } = require('../utils/sanitize');
 
-router.post("/", async (req, res) => {
+// Create or get a chat session for the user (one active session reused per day)
+async function getOrCreateSession(userId) {
+  if (!supabase || !userId) return null;
+  const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+  const { data: existing } = await supabase
+    .from('chat_sessions')
+    .select('id, started_at')
+    .eq('user_id', userId)
+    .gte('started_at', todayStart.toISOString())
+    .order('started_at', { ascending: false })
+    .limit(1);
+  if (existing && existing.length) return existing[0];
+  const { data: created, error } = await supabase
+    .from('chat_sessions')
+    .insert([{ user_id: userId }])
+    .select('id, started_at')
+    .single();
+  if (error) throw error;
+  return created;
+}
+
+async function storeMessage(sessionId, userId, role, content) {
+  if (!supabase || !sessionId) return;
+  await supabase.from('chat_messages').insert([{ session_id: sessionId, user_id: userId || null, role, content }]);
+}
+
+// Fetch previous messages for session (limited)
+async function fetchHistory(sessionId, limit = 15) {
+  if (!supabase || !sessionId) return [];
+  const { data } = await supabase
+    .from('chat_messages')
+    .select('role, content, created_at')
+    .eq('session_id', sessionId)
+    .order('created_at', { ascending: true })
+    .limit(limit);
+  return data || [];
+}
+
+// Get existing session history (requires auth to identify user)
+router.get('/history', requireAuth, async (req, res) => {
   try {
-    const { message, traits } = req.body;
+    if (!supabase) return res.status(500).json({ error: 'Persistence not configured' });
+    const session = await getOrCreateSession(req.user.id);
+    const messages = await fetchHistory(session.id, 50);
+    res.json({ session_id: session.id, messages });
+  } catch (err) {
+    console.error('Chat history error', err);
+    res.status(500).json({ error: 'Failed to load history' });
+  }
+});
+
+router.post("/", optionalAuth, rateLimitChat, async (req, res) => {
+  try {
+  const { message, traits } = req.body;
 
     // Input validation
-    if (!message || typeof message !== 'string' || message.trim().length === 0) {
+  if (!message || typeof message !== 'string' || message.trim().length === 0) {
       return res.status(400).json({ error: "Message is required and cannot be empty" });
     }
+  const cleanMessage = sanitizeText(message, { maxLength: 1500 });
 
     // Create personalized system prompt based on user's emotional state
     let systemPrompt = "You are a compassionate mental health support assistant. ";
@@ -35,9 +91,22 @@ router.post("/", async (req, res) => {
     
     systemPrompt += "Always be empathetic, non-judgmental, and provide helpful, evidence-based mental health support. Keep responses concise and actionable.";
 
+    let session = null;
+    if (req.user) {
+      session = await getOrCreateSession(req.user.id);
+    }
+
+    // Build conversation context: system + last few messages if user logged in
+    let historyMessages = [];
+    if (session) {
+      const history = await fetchHistory(session.id, 12); // last 12
+      historyMessages = history.map(h => ({ role: h.role, content: h.content }));
+    }
+
     const messages = [
       { role: "system", content: systemPrompt },
-      { role: "user", content: message.trim() }
+      ...historyMessages,
+  { role: "user", content: cleanMessage }
     ];
 
     const response = await client.chat.completions.create({
@@ -51,7 +120,19 @@ router.post("/", async (req, res) => {
       throw new Error("Invalid response from OpenAI API");
     }
 
-    res.json({ reply: response.choices[0].message.content });
+    const aiReply = response.choices[0].message.content;
+
+    // Persist messages
+    if (session) {
+      try {
+  await storeMessage(session.id, req.user.id, 'user', cleanMessage);
+        await storeMessage(session.id, null, 'assistant', aiReply);
+      } catch (persistErr) {
+        console.warn('Failed to persist chat message', persistErr.message);
+      }
+    }
+
+    res.json({ reply: aiReply, session_id: session ? session.id : null });
   } catch (error) {
     console.error("Chat API Error:", error);
     

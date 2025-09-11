@@ -1,0 +1,11 @@
+# Supabase CLI configuration
+# Replace YOUR_PROJECT_REF with your Supabase project ref (e.g. abcdefghijklmno)
+# Find it in the Supabase dashboard URL: https://app.supabase.com/project/<project-ref>/settings/general
+
+[project]
+ref = "YOUR_PROJECT_REF"
+
+# Local development database ports (defaults are fine if unused)
+[db]
+port = 54322
+shadow_port = 54323

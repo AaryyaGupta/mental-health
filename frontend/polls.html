@@ -4,15 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Polls - Zephy Student Wellness Hub</title>
+    
+    <!-- Modern Mental Health Theme -->
+    <link rel="stylesheet" href="modern-theme.css">
+    <link rel="stylesheet" href="modern-overrides.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="hero-redesign.css">
     <link rel="stylesheet" href="polls.css">
+    <link rel="stylesheet" href="support-pages-theme.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png">
     
     <!-- Supabase -->
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-    
+    <!-- Env injection (Supabase keys) -->
+    <script src="env.js"></script>
     <!-- Auth Config -->
     <script src="config.js"></script>
     <script src="auth.js"></script>
+    <script src="api.js"></script>
+    
+    <!-- Modern UI Performance Scripts -->
+    <script src="modern-ui.js" defer></script>
+    <script src="performance-optimizer.js" defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -93,7 +108,7 @@
                             </select>
                         </div>
                         
-                        <div id="pollOptionsContainer" class="poll-options-container" style="display: none;">
+                        <div id="pollOptionsContainer" class="poll-options-container is-hidden">
                             <!-- Dynamic options based on poll type -->
                         </div>
                         
@@ -196,6 +211,9 @@
         </div>
     </div>
 
+    <div id="footer-placeholder" data-component="footer"></div>
+
     <script src="polls.js"></script>
+    <script src="footer.js"></script>
 </body>
 </html>

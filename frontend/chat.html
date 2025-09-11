@@ -3,30 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Form</title>
-  <style>
-    body { font-family: Arial; display: flex; justify-content: center; align-items: center; height: 100vh; }
-    .form-container { border: 1px solid #ccc; padding: 20px; border-radius: 8px; }
-    input, select { display: block; margin: 10px 0; padding: 8px; width: 100%; }
-    .btn { background-color: #4CAF50; color: white; border: none; padding: 10px; cursor: pointer; width: 100%; }
-  </style>
+    <title>Chat - Zephy Student Wellness Hub</title>
+        <link rel="stylesheet" href="modern-theme.css">
+    <link rel="stylesheet" href="modern-overrides.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="hero-redesign.css">
+    <link rel="stylesheet" href="support-pages-theme.css">
 </head>
 <body>
-    <header class="header transparent-header">
-        <div class="container">
-            <div class="logo">
+        <header class="header modern-header">
+            <div class="container">
                 <div class="header-logo">
-                    <img src="../attached_assets/generated_images/Clean_transparent_heart_logo_7f88ece0.png" alt="ZEPHY Heart Logo" class="logo-image transparent-logo">
+                    <img src="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png" alt="ZEPHY Brain-Heart Logo" class="logo-image">
                     <span class="logo-text">ZEPHY</span>
                 </div>
+                <nav class="nav modern-nav">
+                    <a href="index.html" class="modern-nav-link">Home</a>
+                    <a href="communities.html" class="modern-nav-link">Communities</a>
+                    <a href="polls.html" class="modern-nav-link">Polls</a>
+                    <a href="fitcheck.html" class="modern-nav-link">Fit Check</a>
+                    <a href="chat.html" class="modern-nav-link active">Chat</a>
+                </nav>
+                <div class="header-actions">
+                    <div class="user-profile active">
+                        <span class="user-avatar" id="userAvatar">🦋</span>
+                        <span class="user-nickname" id="userNickname">Anonymous</span>
+                    </div>
+                </div>
             </div>
-            <nav class="nav">
-                <a href="/" class="nav-link">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </nav>
-        </div>
-    </header>
+        </header>
 
     <main class="zen-chat-container">
         <div class="zen-chat-header">
@@ -107,7 +112,7 @@
             </div>
         </form>
 
-        <div id="chatSection" class="zen-chat-section" style="display: none;">
+    <div id="chatSection" class="zen-chat-section is-hidden">
             <div class="zen-journal">
                 <div class="journal-header">
                     <div class="journal-title">
@@ -149,7 +154,14 @@
         <div class="floating-leaf leaf-5">🌿</div>
     </div>
     
+    <div id="footer-placeholder" data-component="footer"></div>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="env.js"></script>
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script src="api.js"></script>
     <script src="chat.js"></script>
     <script src="theme-switcher.js"></script>
+    <script src="footer.js"></script>
 </body>
 </html>

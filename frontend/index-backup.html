@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Zephy - Anonymous Student Wellness Hub. Safe anonymous communities, AI support, and wellness polls for college students.">
+    <meta name="keywords" content="student wellness, anonymous community, college mental health, stress support, student polls">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Zephy - Anonymous Student Wellness Hub">
+    <meta property="og:description" content="Safe anonymous communities for students. Share, vote, chat, and get AI wellness support - completely anonymous.">
+    <meta property="og:site_name" content="Zephy">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Zephy - Anonymous Student Wellness Hub">
+    <meta name="twitter:description" content="Safe anonymous communities for students. Share, vote, chat, and get AI wellness support - completely anonymous.">
+    
+    <title>Zephy - Anonymous Student Wellness Hub</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png">
+    <link rel="apple-touch-icon" href="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png">
+    
+    <!-- Modern Mental Health Theme -->
+    <link rel="stylesheet" href="modern-theme.css">
+    <link rel="stylesheet" href="modern-overrides.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="spacing-fix.css">
+    
+    <!-- Supabase -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    
+    <!-- Auth Config -->
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script src="auth-modal.js"></script>
+    
+    <!-- Modern UI Performance Scripts -->
+    <script src="modern-ui.js" defer></script>
+    <script src="performance-optimizer.js" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header modern-header">
+        <div class="container">
+            <div class="header-logo">
+                <img src="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png" alt="ZEPHY Brain-Heart Logo" class="logo-image">
+                <span class="logo-text">ZEPHY</span>
+            </div>
+            
+            <nav class="nav">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="communities.html" class="nav-link">Communities</a>
+                <a href="polls.html" class="nav-link">Polls</a>
+                <a href="fitcheck.html" class="nav-link">Fit Check</a>
+            </nav>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" title="Toggle mobile menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="header-actions">
+                <div class="user-profile" style="display: none;">
+                    <span class="user-avatar" id="userAvatar">🦋</span>
+                    <span class="user-nickname" id="userNickname">Anonymous</span>
+                </div>
+                <button class="btn-login" onclick="authService.showLoginModal()">Login</button>
+            </div>
+
+            <!-- Authentication Modal -->
+            <div id="authModal" class="auth-modal">
+                <div class="auth-modal-content">
+                    <button class="auth-close-btn" onclick="closeAuthModal()">&times;</button>
+                    
+                    <!-- Login/Signup Toggle Tabs -->
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" onclick="showAuthTab('login')">Sign In</button>
+                        <button class="auth-tab" onclick="showAuthTab('signup')">Sign Up</button>
+                    </div>
+
+                    <!-- Sign In Form -->
+                    <div id="loginForm" class="auth-form active">
+                        <h2 class="auth-title">Welcome Back!</h2>
+                        <p class="auth-subtitle">Sign in to your anonymous account</p>
+
+                        <form id="emailLoginForm" class="auth-input-form">
+                            <div class="auth-input-group">
+                                <input type="email" id="loginEmail" placeholder="Email" required>
+                                <span class="auth-input-icon">📧</span>
+                            </div>
+                            <div class="auth-input-group">
+                                <input type="password" id="loginPassword" placeholder="Password" required>
+                                <span class="auth-input-icon">🔒</span>
+                            </div>
+                            <button type="submit" class="auth-btn primary">Sign In</button>
+                        </form>
+
+                        <div class="auth-divider">
+                            <span>or</span>
+                        </div>
+
+                        <button onclick="authService.signInWithGoogle()" class="auth-btn google">
+                            <span class="google-icon">🔍</span>
+                            Continue with Google
+                        </button>
+                    </div>
+
+                    <!-- Sign Up Form -->
+                    <div id="signupForm" class="auth-form">
+                        <h2 class="auth-title">Join Zephy</h2>
+                        <p class="auth-subtitle">Create your anonymous student profile</p>
+
+                        <form id="emailSignupForm" class="auth-input-form">
+                            <div class="auth-input-group">
+                                <input type="email" id="signupEmail" placeholder="Email" required>
+                                <span class="auth-input-icon">📧</span>
+                            </div>
+                            <div class="auth-input-group">
+                                <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" minlength="6" required>
+                                <span class="auth-input-icon">🔒</span>
+                            </div>
+                            <div class="auth-input-group">
+                                <input type="text" id="signupNickname" placeholder="Nickname (e.g., StudyBuddy42)" maxlength="30" required>
+                                <span class="auth-input-icon">👤</span>
+                            </div>
+                            <div class="auth-input-group">
+                                <select id="signupAvatar" title="Choose your anonymous avatar" required>
+                                    <option value="">Choose Avatar</option>
+                                    <option value="🦋">🦋 Butterfly</option>
+                                    <option value="🌟">🌟 Star</option>
+                                    <option value="🌸">🌸 Blossom</option>
+                                    <option value="🎭">🎭 Mask</option>
+                                    <option value="🌙">🌙 Moon</option>
+                                    <option value="⚡">⚡ Lightning</option>
+                                    <option value="🎨">🎨 Artist</option>
+                                    <option value="🎯">🎯 Target</option>
+                                    <option value="🌿">🌿 Leaf</option>
+                                    <option value="🔥">🔥 Fire</option>
+                                </select>
+                                <span class="auth-input-icon">🎭</span>
+                            </div>
+                            <div class="auth-input-group">
+                                <select id="signupYear" title="Select your academic year" required>
+                                    <option value="">Academic Year</option>
+                                    <option value="Freshman">Freshman/1st Year</option>
+                                    <option value="Sophomore">Sophomore/2nd Year</option>
+                                    <option value="Junior">Junior/3rd Year</option>
+                                    <option value="Senior">Senior/Final Year</option>
+                                    <option value="Graduate">Graduate Student</option>
+                                    <option value="PhD">PhD Student</option>
+                                </select>
+                                <span class="auth-input-icon">🎓</span>
+                            </div>
+                            <button type="submit" class="auth-btn primary">Create Account</button>
+                        </form>
+
+                        <div class="auth-divider">
+                            <span>or</span>
+                        </div>
+
+                        <button onclick="authService.signInWithGoogle()" class="auth-btn google">
+                            <span class="google-icon">🔍</span>
+                            Sign up with Google
+                        </button>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="authLoading" class="auth-loading">
+                        <div class="auth-spinner"></div>
+                        <p>Processing...</p>
+                    </div>
+
+                    <!-- Success Message -->
+                    <div id="authSuccess" class="auth-success">
+                        <div class="success-icon">✅</div>
+                        <h3>Welcome to Zephy!</h3>
+                        <p>Your account has been created successfully.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="zen-hero">
+        <div class="zen-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-icon">🌟</span>
+                    <span class="badge-text">Your Safe Space</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    Anonymous <span class="title-highlight">Student Wellness</span> Community
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Connect, share, and grow with fellow students in complete anonymity. 
+                    No judgment, no exposure - just genuine support and understanding.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">Anonymous Students</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Daily Conversations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Feel Supported</div>
+                    </div>
+                </div>
+                
+                <div class="hero-actions">
+                    <button class="zen-button primary" onclick="authService.showLoginModal()">
+                        <span class="button-text">Join Community</span>
+                    </button>
+                    <a href="#features" class="zen-button secondary">
+                        <span class="button-text">Learn More</span>
+                    </a>
+                </div>
+                
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <span class="trust-icon">🔒</span>
+                        <span class="trust-text">100% Anonymous</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">🛡️</span>
+                        <span class="trust-text">Secure & Private</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">👥</span>
+                        <span class="trust-text">Student-Only</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <img src="attached_assets/generated_images/ZEPHY_brain-heart_logo_icon_350753f1.png" alt="Zephy Wellness Hub" class="hero-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Overview -->
+    <section class="features-overview" id="features">
+        <div class="zen-container">
+            <div class="features-header">
+                <div class="features-badge">
+                    <span class="badge-icon">✨</span>
+                    <span class="badge-text">Features</span>
+                </div>
+                <h2 class="features-title">Everything You Need for Student Wellness</h2>
+                <p class="features-subtitle">Comprehensive tools designed specifically for student mental health and community support</p>
+            </div>
+                
+            <div class="feature-cards">
+                <div class="feature-card community-card">
+                    <div class="card-header">
+                        <div class="card-icon-wrapper">
+                            <div class="card-icon">🏠</div>
+                            <div class="icon-pulse"></div>
+                        </div>
+                        <h3>ANONYMOUS COMMUNITIES</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">Join student groups and share experiences without revealing your identity</p>
+                        <ul class="feature-list">
+                            <li><span class="list-icon">💬</span> Anonymous Posts & Questions</li>
+                            <li><span class="list-icon">🤝</span> Community Discussions</li>
+                            <li><span class="list-icon">🔒</span> Complete Privacy</li>
+                        </ul>
+                    </div>
+                </div>
+
+                
+                <div class="feature-card polls-card">
+                    <div class="card-header">
+                        <div class="card-icon-wrapper">
+                            <div class="card-icon">📊</div>
+                            <div class="icon-pulse"></div>
+                        </div>
+                        <h3>PULSE POLLS</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">Vote on campus topics and see how fellow students really feel</p>
+                        <ul class="feature-list">
+                            <li><span class="list-icon">🗳️</span> Anonymous Voting</li>
+                            <li><span class="list-icon">📈</span> Live Results</li>
+                            <li><span class="list-icon">🎯</span> Campus Insights</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="feature-card mentalfit-card">
+                    <div class="card-header">
+                        <div class="card-icon-wrapper">
+                            <div class="card-icon">🧠</div>
+                            <div class="icon-pulse"></div>
+                        </div>
+                        <h3>WELLNESS FIT CHECK</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">Quick wellness assessment with personalized recommendations</p>
+                        <ul class="feature-list">
+                            <li><span class="list-icon">❤️</span> Stress & Mood Check</li>
+                            <li><span class="list-icon">🎯</span> Personal Recommendations</li>
+                            <li><span class="list-icon">🌱</span> Daily Wellness Tips</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="feature-card chat-card">
+                    <div class="card-header">
+                        <div class="card-icon-wrapper">
+                            <div class="card-icon">💬</div>
+                            <div class="icon-pulse"></div>
+                        </div>
+                        <h3>PEER CONNECTIONS</h3>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-description">One-on-one anonymous chats with fellow students</p>
+                        <ul class="feature-list">
+                            <li><span class="list-icon">👤</span> Anonymous Profiles</li>
+                            <li><span class="list-icon">🤝</span> Peer Support</li>
+                            <li><span class="list-icon">🔄</span> Match with Similar Students</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="zen-action">
+                <div class="action-card">
+                    <p class="action-invitation">Ready to join your anonymous student community?</p>
+                    <div class="action-buttons">
+                        <a href="communities.html" class="zen-button primary">
+                            <span class="button-text">Join Communities</span>
+                        </a>
+                        <a href="fitcheck.html" class="zen-button secondary">
+                            <span class="button-text">Wellness Check</span>
+                        </a>
+                    </div>
+                    <p class="action-note">100% anonymous - your privacy is protected</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="about" class="philosophy-section">
+        <div class="zen-container">
+            <div class="philosophy-header">
+                <div class="philosophy-icon">💭</div>
+                <h2 class="philosophy-title">The Art of Gentle Healing</h2>
+                <p class="philosophy-subtitle">Our approach to wellness through connection and understanding</p>
+            </div>
+            
+            <div class="philosophy-grid">
+                <div class="philosophy-card">
+                    <div class="philosophy-emoji">🌸</div>
+                    <h3>Your journey matters</h3>
+                    <p>Every step you take toward healing is meaningful. We believe in your strength and honor your courage to seek support.</p>
+                </div>
+                
+                <div class="philosophy-card">
+                    <div class="philosophy-emoji">🤝</div>
+                    <h3>Safe connection</h3>
+                    <p>Here, you can speak your truth without fear of judgment. Our space is built on trust, understanding, and genuine human compassion.</p>
+                </div>
+                
+                <div class="philosophy-card">
+                    <div class="philosophy-emoji">💫</div>
+                    <h3>Growth through support</h3>
+                    <p>Healing happens in community. With the right support and tools, you can navigate life's challenges and discover your inner resilience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>🌙 Zephy</h3>
+                    <p>A space that sees you</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#privacy" class="footer-link">Privacy</a>
+                    <a href="#terms" class="footer-link">Terms</a>
+                    <a href="#contact" class="footer-link">Contact</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Zephy. Made with 💜 for mental wellness.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

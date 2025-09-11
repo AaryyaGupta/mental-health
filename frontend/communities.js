@@ -1,7 +1,7 @@
 // Communities JavaScript
 class CommunitiesApp {
     constructor() {
-        this.posts = [];
+    this.posts = [];
         this.currentCommunity = 'all';
         this.userProfile = this.loadUserProfile();
         this.init();
@@ -11,7 +11,7 @@ class CommunitiesApp {
         this.setupMobileMenu();
         this.setupEventListeners();
         this.loadUserInfo();
-        this.loadPosts();
+    this.loadPosts();
     }
 
     setupMobileMenu() {
@@ -102,108 +102,57 @@ class CommunitiesApp {
         this.filterPosts();
     }
 
-    createPost() {
+    async createPost() {
         const content = document.getElementById('postContent').value.trim();
         const community = document.getElementById('postCommunity').value;
-
         if (!content) return;
-
-        const post = {
-            id: Date.now() + Math.random(),
-            content: content,
-            community: community,
-            author: {
-                nickname: this.userProfile.nickname,
-                avatar: this.userProfile.avatar
-            },
-            timestamp: new Date(),
-            polls: {
-                support: 0,
-                relate: 0,
-                helpful: 0
-            },
-            userVotes: new Set(),
-            replies: []
-        };
-
-        this.posts.unshift(post);
-        this.savePosts();
-        this.renderPosts();
-
-        // Clear form
-        document.getElementById('postContent').value = '';
-        document.querySelector('.char-count').textContent = '0/500';
-        document.getElementById('createPostBtn').disabled = true;
-
-        // Show success message
-        this.showNotification('Post shared anonymously! 📝');
-    }
-
-    loadPosts() {
-        // Load from localStorage or create sample posts
-        const stored = localStorage.getItem('zephyPosts');
-        if (stored) {
-            this.posts = JSON.parse(stored);
-            // Convert timestamp strings back to Date objects
-            this.posts.forEach(post => {
-                post.timestamp = new Date(post.timestamp);
-                post.userVotes = new Set(post.userVotes || []);
-                if (post.replies) {
-                    post.replies.forEach(reply => {
-                        reply.timestamp = new Date(reply.timestamp);
-                    });
-                }
+        try {
+            const created = await window.apiClient.request('/api/communities/posts', {
+                method: 'POST',
+                body: { content, community }
             });
-        } else {
-            this.createSamplePosts();
+            // Normalize structure for frontend
+            const post = {
+                id: created.id,
+                content: created.content,
+                community: created.community,
+                author: created.author,
+                timestamp: new Date(created.timestamp),
+                polls: created.polls,
+                userVotes: new Set(),
+                replies: []
+            };
+            this.posts.unshift(post);
+            this.renderPosts();
+            document.getElementById('postContent').value = '';
+            document.querySelector('.char-count').textContent = '0/500';
+            document.getElementById('createPostBtn').disabled = true;
+            this.showNotification('Post shared anonymously! 📝');
+        } catch (err) {
+            this.showNotification('Failed to post: ' + err.message);
         }
-        this.renderPosts();
     }
 
-    createSamplePosts() {
-        const samplePosts = [
-            {
-                id: 1,
-                content: "How do you handle exam stress? I feel like I'm drowning in assignments and can barely sleep. Any tips?",
-                community: "exam-stress",
-                author: { nickname: "StressedStudent", avatar: "😅" },
-                timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-                polls: { support: 12, relate: 8, helpful: 3 },
-                userVotes: new Set(),
-                replies: [
-                    {
-                        id: 1,
-                        content: "Try the 25-5 rule! Study for 25 mins, break for 5. It really helps me focus.",
-                        author: { nickname: "StudyBuddy", avatar: "📚" },
-                        timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000),
-                        support: 5
-                    }
-                ]
-            },
-            {
-                id: 2,
-                content: "Missing home so much... Anyone else feeling homesick? How do you cope?",
-                community: "homesick",
-                author: { nickname: "FreshStart", avatar: "🌱" },
-                timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
-                polls: { support: 15, relate: 20, helpful: 2 },
+    async loadPosts() {
+        try {
+            const data = await window.apiClient.request('/api/communities/posts?community=' + this.currentCommunity, { method: 'GET', auth: false });
+            this.posts = data.map(p => ({
+                id: p.id,
+                content: p.content,
+                community: p.community,
+                author: p.author,
+                timestamp: new Date(p.timestamp),
+                polls: p.polls,
                 userVotes: new Set(),
                 replies: []
-            },
-            {
-                id: 3,
-                content: "Final year anxiety is real. Job applications, thesis, everything feels overwhelming. How are you all managing?",
-                community: "final-year",
-                author: { nickname: "AlmostGrad", avatar: "🎓" },
-                timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000),
-                polls: { support: 8, relate: 12, helpful: 5 },
-                userVotes: new Set(),
-                replies: []
-            }
-        ];
-        this.posts = samplePosts;
-        this.savePosts();
+            }));
+            this.renderPosts();
+        } catch (err) {
+            this.showNotification('Failed to load posts: ' + err.message);
+        }
     }
+
+    createSamplePosts() { /* removed: now data from API */ }
 
     filterPosts() {
         if (this.currentCommunity === 'all') {
@@ -245,7 +194,7 @@ class CommunitiesApp {
         postEl.querySelector('.post-time').textContent = this.formatTime(post.timestamp);
         postEl.querySelector('.post-text').textContent = post.content;
         postEl.querySelector('.post-community-tag').textContent = this.getCommunityName(post.community);
-        postEl.querySelector('.reply-count').textContent = post.replies.length;
+    postEl.querySelector('.reply-count').textContent = post.replies.length;
 
         // Fill in poll data
         const pollBtns = postEl.querySelectorAll('.poll-btn');
@@ -272,7 +221,7 @@ class CommunitiesApp {
             const isVisible = repliesSection.style.display !== 'none';
             repliesSection.style.display = isVisible ? 'none' : 'block';
             if (!isVisible) {
-                this.renderReplies(post, repliesSection.querySelector('.replies-container'));
+                this.fetchAndRenderReplies(post, repliesSection.querySelector('.replies-container'));
             }
         });
 
@@ -315,61 +264,73 @@ class CommunitiesApp {
         return replyEl;
     }
 
-    handlePollVote(postId, pollType, btnElement) {
+    async handlePollVote(postId, pollType, btnElement) {
         const post = this.posts.find(p => p.id === postId);
         if (!post) return;
-
-        const hasVoted = post.userVotes.has(pollType);
-        
-        if (hasVoted) {
-            // Remove vote
-            post.polls[pollType]--;
-            post.userVotes.delete(pollType);
-            btnElement.classList.remove('voted');
-        } else {
-            // Add vote
-            post.polls[pollType]++;
-            post.userVotes.add(pollType);
-            btnElement.classList.add('voted');
+        try {
+            const result = await window.apiClient.request(`/api/communities/posts/${postId}/vote`, {
+                method: 'POST',
+                body: { pollType }
+            });
+            post.polls.support = result.polls.support;
+            post.polls.relate = result.polls.relate;
+            post.polls.helpful = result.polls.helpful;
+            // Toggle local state
+            if (post.userVotes.has(pollType)) {
+                post.userVotes.delete(pollType);
+                btnElement.classList.remove('voted');
+            } else {
+                post.userVotes.add(pollType);
+                btnElement.classList.add('voted');
+            }
+            btnElement.querySelector('.poll-count').textContent = post.polls[pollType];
+        } catch (err) {
+            this.showNotification('Vote failed: ' + err.message);
         }
-
-        btnElement.querySelector('.poll-count').textContent = post.polls[pollType];
-        this.savePosts();
     }
 
-    addReply(postId, content, formElement) {
+    async addReply(postId, content, formElement) {
         if (!content) return;
-
         const post = this.posts.find(p => p.id === postId);
         if (!post) return;
+        try {
+            const reply = await window.apiClient.request(`/api/communities/posts/${postId}/reply`, {
+                method: 'POST',
+                body: { content }
+            });
+            post.replies.push({
+                id: reply.id,
+                content: reply.content,
+                author: reply.author,
+                timestamp: new Date(reply.timestamp),
+                support: reply.support
+            });
+            formElement.querySelector('textarea').value = '';
+            formElement.querySelector('.reply-char-count').textContent = '0/300';
+            const container = formElement.parentNode.querySelector('.replies-container');
+            this.renderReplies(post, container);
+            const replyCountEl = formElement.closest('.post-card').querySelector('.reply-count');
+            replyCountEl.textContent = post.replies.length;
+            this.showNotification('Reply added! 💬');
+        } catch (err) {
+            this.showNotification('Reply failed: ' + err.message);
+        }
+    }
 
-        const reply = {
-            id: Date.now() + Math.random(),
-            content: content,
-            author: {
-                nickname: this.userProfile.nickname,
-                avatar: this.userProfile.avatar
-            },
-            timestamp: new Date(),
-            support: 0
-        };
-
-        post.replies.push(reply);
-        this.savePosts();
-
-        // Clear form
-        formElement.querySelector('textarea').value = '';
-        formElement.querySelector('.reply-char-count').textContent = '0/300';
-
-        // Re-render replies
-        const container = formElement.parentNode.querySelector('.replies-container');
-        this.renderReplies(post, container);
-
-        // Update reply count
-        const replyCountEl = formElement.closest('.post-card').querySelector('.reply-count');
-        replyCountEl.textContent = post.replies.length;
-
-        this.showNotification('Reply added! 💬');
+    async fetchAndRenderReplies(post, container) {
+        try {
+            const data = await window.apiClient.request(`/api/communities/posts/${post.id}/replies`, { method: 'GET', auth: false });
+            post.replies = data.map(r => ({
+                id: r.id,
+                content: r.content,
+                author: r.author,
+                timestamp: new Date(r.timestamp),
+                support: r.support
+            }));
+            this.renderReplies(post, container);
+        } catch (err) {
+            container.innerHTML = '<p style="padding:0.5rem;">Failed to load replies.</p>';
+        }
     }
 
     loadMorePosts() {
@@ -401,14 +362,7 @@ class CommunitiesApp {
         return `${days}d ago`;
     }
 
-    savePosts() {
-        // Convert Sets to arrays for storage
-        const postsToSave = this.posts.map(post => ({
-            ...post,
-            userVotes: Array.from(post.userVotes)
-        }));
-        localStorage.setItem('zephyPosts', JSON.stringify(postsToSave));
-    }
+    savePosts() { /* no-op: persistence handled server-side */ }
 
     showNotification(message) {
         // Create notification element

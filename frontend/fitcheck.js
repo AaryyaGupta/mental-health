@@ -15,7 +15,7 @@ class WellnessFitCheck {
         this.setupMobileMenu();
         this.loadUserInfo();
         this.setupEventListeners();
-        this.loadUserHistory();
+    this.loadUserHistory();
     }
 
     setupMobileMenu() {
@@ -108,7 +108,7 @@ class WellnessFitCheck {
         const category = this.getWellnessCategory(score);
         
         // Store assessment result
-        this.saveAssessmentResult(score, category);
+    this.saveAssessmentResult(score, category);
         
         // Show results
         this.displayResults(score, category);
@@ -361,30 +361,39 @@ class WellnessFitCheck {
         `).join('');
     }
 
-    saveAssessmentResult(score, category) {
-        const result = {
-            date: new Date().toISOString(),
-            score: score,
-            category: category.name,
-            responses: { ...this.assessmentData }
-        };
-        
-        const history = JSON.parse(localStorage.getItem('wellnessHistory') || '[]');
-        history.push(result);
-        
-        // Keep only last 30 results
-        if (history.length > 30) {
-            history.splice(0, history.length - 30);
+    async saveAssessmentResult(score, category) {
+        try {
+            await window.apiClient.request('/api/fitcheck', {
+                method: 'POST',
+                body: {
+                    mood: this.assessmentData.mood,
+                    stress: this.assessmentData.stress,
+                    energy: this.assessmentData.sleep, // mapping sleep -> energy analog
+                    notes: `Academic:${this.assessmentData.academic}`
+                }
+            });
+            // local fallback minimal
+            const history = JSON.parse(localStorage.getItem('wellnessHistory') || '[]');
+            history.push({ date: new Date().toISOString(), score, category: category.name });
+            localStorage.setItem('wellnessHistory', JSON.stringify(history));
+        } catch (err) {
+            console.warn('Failed to persist assessment remotely:', err.message);
         }
-        
-        localStorage.setItem('wellnessHistory', JSON.stringify(history));
     }
 
-    loadUserHistory() {
-        const history = JSON.parse(localStorage.getItem('wellnessHistory') || '[]');
-        
-        if (history.length > 0) {
-            this.displayHistorySummary(history);
+    async loadUserHistory() {
+        try {
+            const data = await window.apiClient.request('/api/fitcheck/history', { method: 'GET' });
+            // Map to history entries
+            const mapped = data.map(d => ({
+                date: d.created_at,
+                score: Math.round(((6 - d.stress) * 0.3 + d.energy * 0.25 + d.mood * 0.3 + (6 - (d.notes ? parseInt(d.notes.split(':')[1]) : 3)) * 0.15) / 5 * 100),
+                category: 'Previous'
+            }));
+            if (mapped.length) this.displayHistorySummary(mapped);
+        } catch (err) {
+            const history = JSON.parse(localStorage.getItem('wellnessHistory') || '[]');
+            if (history.length > 0) this.displayHistorySummary(history);
         }
     }
 

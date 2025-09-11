@@ -1,0 +1,3 @@
+// Environment injection for Supabase (anon key is safe for frontend usage)
+window.__SUPABASE_URL__ = "https://jxcunnvntjukjuzxtyih.supabase.co";
+window.__SUPABASE_ANON_KEY__ = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4Y3VubnZudGp1a2p1enh0eWloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc1OTU2MjksImV4cCI6MjA3MzE3MTYyOX0.E24ELEK6THfr2yK81dcjNG6iZYB8JvZaBF_A85Nqzg4";
